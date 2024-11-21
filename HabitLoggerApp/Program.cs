@@ -1,15 +1,21 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using HabitLoggerApp.Application;
+using HabitLoggerLibrary.DbManager;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-using var connection = new SqliteConnection("Data Source = HabitLogger.db");
+var builder = Host.CreateDefaultBuilder()
+    .ConfigureAppConfiguration(builder =>
+    {
+        builder.SetBasePath(Directory.GetCurrentDirectory())
+            .AddUserSecrets<Program>();
+    }).ConfigureServices((context, services) =>
+    {
+        services.AddSingleton<App>();
+        services.AddSingleton<DatabaseManagerFactory>();
+    });
 
-connection.Open();
+using var host = builder.Build();
 
-var command = connection.CreateCommand();
-command.CommandText = @"CREATE TABLE IF NOT EXISTS habit_logs (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    habit TEXT NOT NULL,
-    quantity INTEGER NOT NULL,
-    habit_date DATE NOT NULL,
-    UNIQUE(habit, quantity)
-)";
-command.ExecuteNonQuery();
+var app = host.Services.GetService<App>()!;
+app.Run();
