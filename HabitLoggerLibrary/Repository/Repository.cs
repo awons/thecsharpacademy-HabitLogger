@@ -28,9 +28,14 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
         throw new NotImplementedException();
     }
 
-    public Habit DeleteHabit(Habit habit)
+    public void DeleteHabitById(int id)
     {
-        throw new NotImplementedException();
+        if (!HasHabitById(id)) throw new HabitNotFoundException(id);
+
+        var command = connection.CreateCommand();
+        command.CommandText = $"DELETE FROM {IRepository.TableName} WHERE id = @Id";
+        command.Parameters.AddWithValue("@Id", id);
+        command.ExecuteNonQuery();
     }
 
     public Habit GetHabitById(int id)

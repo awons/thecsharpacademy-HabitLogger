@@ -75,6 +75,27 @@ public class RepositoryTests
         repository.HasHabitById(0).Should().BeFalse();
     }
 
+    [Test]
+    public void WIllDeleteExistingHabit()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        repository.HasHabitById(1).Should().BeTrue();
+        repository.DeleteHabitById(1);
+        repository.HasHabitById(1).Should().BeFalse();
+    }
+
+    [Test]
+    public void WillThrowExceptionIfTryingToDeleteNotExistingHabit()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        var action = () => repository.DeleteHabitById(0);
+        action.Should().Throw<LibraryRepository.HabitNotFoundException>();
+    }
+
     private LibraryRepository.IRepository CreateRepository()
     {
         return new LibraryRepository.Repository((SqliteConnection)_databaseManager.GetConnection());

@@ -10,7 +10,7 @@ public interface IRepository
 
     public Habit UpdateHabit(Habit habit);
 
-    public Habit DeleteHabit(Habit habit);
+    public void DeleteHabitById(int id);
 
     public Habit GetHabitById(int id);
 
