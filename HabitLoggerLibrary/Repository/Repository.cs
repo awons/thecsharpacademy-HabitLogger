@@ -50,6 +50,12 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
 
     public bool HasHabitById(int id)
     {
-        throw new NotImplementedException();
+        var command = connection.CreateCommand();
+        command.CommandText = $"SELECT id FROM {IRepository.TableName} WHERE id = @Id";
+        command.Parameters.AddWithValue("@Id", id);
+
+        using var reader = command.ExecuteReader();
+
+        return reader.HasRows;
     }
 }

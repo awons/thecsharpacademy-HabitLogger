@@ -57,6 +57,24 @@ public class RepositoryTests
         action.Should().Throw<LibraryRepository.HabitNotFoundException>();
     }
 
+    [Test]
+    public void WillReturnTrueIfHabitExists()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        repository.HasHabitById(1).Should().BeTrue();
+    }
+
+    [Test]
+    public void WillReturnFalseIfHabitDoesNotExist()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        repository.HasHabitById(0).Should().BeFalse();
+    }
+
     private LibraryRepository.IRepository CreateRepository()
     {
         return new LibraryRepository.Repository((SqliteConnection)_databaseManager.GetConnection());
