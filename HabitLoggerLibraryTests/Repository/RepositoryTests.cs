@@ -53,8 +53,8 @@ public class RepositoryTests
         PopulateDatabase();
         var repository = CreateRepository();
 
-        Action act = () => repository.GetHabitById(0);
-        act.Should().Throw<LibraryRepository.HabitNotFoundException>();
+        Action action = () => repository.GetHabitById(0);
+        action.Should().Throw<LibraryRepository.HabitNotFoundException>();
     }
 
     private LibraryRepository.IRepository CreateRepository()
