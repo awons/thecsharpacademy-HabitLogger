@@ -1,4 +1,5 @@
 using FluentAssertions;
+using HabitLoggerLibrary;
 using HabitLoggerLibrary.DbManager;
 using Microsoft.Data.Sqlite;
 using LibraryRepository = HabitLoggerLibrary.Repository;
@@ -122,6 +123,23 @@ public class RepositoryTests
 
         var action = () => repository.UpdateHabit(updatedHabit);
         action.Should().Throw<LibraryRepository.HabitNotFoundException>();
+    }
+
+    [Test]
+    public void WillAddNewHabit()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        repository.HasHabitById(4).Should().BeFalse();
+        var habit = repository.AddHabit(new HabitDraft("added_habit_name", 8,
+            new DateOnly(2024, 11, 30)));
+
+        habit.Id.Should().Be(4);
+        habit.HabitName.Should().Be("added_habit_name");
+        habit.Quantity.Should().Be(8);
+        habit.HabitDate.Should().Be(new DateOnly(2024, 11, 30));
+        repository.HasHabitById(4).Should().BeTrue();
     }
 
     private LibraryRepository.IRepository CreateRepository()

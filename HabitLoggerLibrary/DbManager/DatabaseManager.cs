@@ -10,7 +10,7 @@ internal sealed class DatabaseManager(SqliteConnection connection) : IDatabaseMa
     {
         var command = connection.CreateCommand();
         command.CommandText = $@"CREATE TABLE IF NOT EXISTS {IRepository.TableName} (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id INTEGER PRIMARY KEY,
             habit TEXT NOT NULL,
             quantity INTEGER NOT NULL,
             habit_date DATE NOT NULL,

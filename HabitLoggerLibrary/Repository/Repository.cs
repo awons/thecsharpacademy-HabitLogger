@@ -1,3 +1,4 @@
+using HabitLoggerLibrary.Sqlite;
 using Microsoft.Data.Sqlite;
 
 namespace HabitLoggerLibrary.Repository;
@@ -20,7 +21,15 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
 
     public Habit AddHabit(HabitDraft draft)
     {
-        throw new NotImplementedException();
+        var command = connection.CreateCommand();
+        command.CommandText =
+            $"INSERT INTO {IRepository.TableName} (habit, quantity, habit_date) VALUES (@Habit, @Quantity, @Date);";
+        command.Parameters.AddWithValue("@Habit", draft.HabitName);
+        command.Parameters.AddWithValue("@Quantity", draft.Quantity);
+        command.Parameters.AddWithValue("@Date", draft.HabitDate);
+        command.ExecuteNonQuery();
+
+        return GetHabitById(connection.GetLastInsertRowId());
     }
 
     public void UpdateHabit(Habit habit)
@@ -37,7 +46,7 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
         if (updatedCount == 0) throw new HabitNotFoundException(habit.Id);
     }
 
-    public void DeleteHabitById(int id)
+    public void DeleteHabitById(long id)
     {
         if (!HasHabitById(id)) throw new HabitNotFoundException(id);
 
@@ -47,7 +56,7 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
         command.ExecuteNonQuery();
     }
 
-    public Habit GetHabitById(int id)
+    public Habit GetHabitById(long id)
     {
         var command = connection.CreateCommand();
         command.CommandText = $"SELECT id, habit, quantity, habit_date FROM {IRepository.TableName} WHERE id = @Id";
@@ -58,11 +67,11 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
 
         reader.Read();
 
-        return new Habit(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2),
+        return new Habit(reader.GetInt64(0), reader.GetString(1), reader.GetInt32(2),
             DateOnly.FromDateTime(reader.GetDateTime(3)));
     }
 
-    public bool HasHabitById(int id)
+    public bool HasHabitById(long id)
     {
         var command = connection.CreateCommand();
         command.CommandText = $"SELECT id FROM {IRepository.TableName} WHERE id = @Id";

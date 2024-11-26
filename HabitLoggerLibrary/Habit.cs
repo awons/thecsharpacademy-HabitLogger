@@ -1,5 +1,5 @@
 namespace HabitLoggerLibrary;
 
-public sealed record Habit(int Id, string HabitName, int Quantity, DateOnly HabitDate)
+public sealed record Habit(long Id, string HabitName, int Quantity, DateOnly HabitDate)
 {
 }

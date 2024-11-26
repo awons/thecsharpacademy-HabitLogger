@@ -10,9 +10,9 @@ public interface IRepository
 
     public void UpdateHabit(Habit habit);
 
-    public void DeleteHabitById(int id);
+    public void DeleteHabitById(long id);
 
-    public Habit GetHabitById(int id);
+    public Habit GetHabitById(long id);
 
-    public bool HasHabitById(int id);
+    public bool HasHabitById(long id);
 }
