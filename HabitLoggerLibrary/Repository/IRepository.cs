@@ -8,7 +8,7 @@ public interface IRepository
 
     public Habit AddHabit(HabitDraft draft);
 
-    public Habit UpdateHabit(Habit habit);
+    public void UpdateHabit(Habit habit);
 
     public void DeleteHabitById(int id);
 

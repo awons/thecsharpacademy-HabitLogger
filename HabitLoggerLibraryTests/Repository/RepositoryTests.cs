@@ -96,6 +96,34 @@ public class RepositoryTests
         action.Should().Throw<LibraryRepository.HabitNotFoundException>();
     }
 
+    [Test]
+    public void ExistingHabitWillBeUpdated()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        var updatedHabit = repository.GetHabitById(1) with
+        {
+            HabitName = "updated_habit_name",
+            Quantity = 10,
+            HabitDate = new DateOnly(2024, 12, 31)
+        };
+        repository.UpdateHabit(updatedHabit);
+        repository.GetHabitById(1).Should().BeEquivalentTo(updatedHabit);
+    }
+
+    [Test]
+    public void WillThrowExceptionIfUpdatingNonExistingHabit()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        var updatedHabit = repository.GetHabitById(1) with { Id = 10 };
+
+        var action = () => repository.UpdateHabit(updatedHabit);
+        action.Should().Throw<LibraryRepository.HabitNotFoundException>();
+    }
+
     private LibraryRepository.IRepository CreateRepository()
     {
         return new LibraryRepository.Repository((SqliteConnection)_databaseManager.GetConnection());

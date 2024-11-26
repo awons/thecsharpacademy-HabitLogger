@@ -23,9 +23,18 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
         throw new NotImplementedException();
     }
 
-    public Habit UpdateHabit(Habit habit)
+    public void UpdateHabit(Habit habit)
     {
-        throw new NotImplementedException();
+        var command = connection.CreateCommand();
+        command.CommandText =
+            $"UPDATE {IRepository.TableName} SET habit = @HabitName, quantity = @Quantity, habit_date = @HabitDate WHERE id = @Id";
+
+        command.Parameters.AddWithValue("@HabitName", habit.HabitName);
+        command.Parameters.AddWithValue("@Quantity", habit.Quantity);
+        command.Parameters.AddWithValue("@HabitDate", habit.HabitDate);
+        command.Parameters.AddWithValue("@Id", habit.Id);
+        var updatedCount = command.ExecuteNonQuery();
+        if (updatedCount == 0) throw new HabitNotFoundException(habit.Id);
     }
 
     public void DeleteHabitById(int id)
