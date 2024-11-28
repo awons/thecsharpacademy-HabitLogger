@@ -1,5 +1,6 @@
 ﻿using HabitLoggerApp.Application;
 using HabitLoggerLibrary.DbManager;
+using HabitLoggerLibrary.Ui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +14,8 @@ var builder = Host.CreateDefaultBuilder()
     {
         services.AddSingleton<App>();
         services.AddSingleton<DatabaseManagerFactory>();
+        services.AddSingleton<KeyAwaiterFactory>();
+        services.AddSingleton<ConsoleWrapperFactory>();
     });
 
 using var host = builder.Build();
