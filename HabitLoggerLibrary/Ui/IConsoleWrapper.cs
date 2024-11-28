@@ -2,7 +2,7 @@ namespace HabitLoggerLibrary.Ui;
 
 public interface IConsoleWrapper
 {
-    public ConsoleKeyInfo ReadKey(bool intercept);
+    public ConsoleKeyInfo ReadKey();
 
     public string? ReadLine();
 }

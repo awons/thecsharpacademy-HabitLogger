@@ -15,8 +15,4 @@
             <_Parameter1>HabitLoggerLibraryTests</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Ui\Menu\"/>
-    </ItemGroup>
 </Project>

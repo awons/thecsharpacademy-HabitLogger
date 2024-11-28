@@ -14,8 +14,8 @@ var builder = Host.CreateDefaultBuilder()
     {
         services.AddSingleton<App>();
         services.AddSingleton<DatabaseManagerFactory>();
-        services.AddSingleton<KeyAwaiterFactory>();
-        services.AddSingleton<ConsoleWrapperFactory>();
+        services.AddSingleton<IKeyAwaiter, ConsoleKeyAwaiter>();
+        services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();
     });
 
 using var host = builder.Build();

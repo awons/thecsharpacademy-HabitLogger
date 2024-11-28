@@ -1,10 +1,10 @@
 namespace HabitLoggerLibrary.Ui;
 
-internal sealed class ConsoleWrapper : IConsoleWrapper
+public sealed class ConsoleWrapper : IConsoleWrapper
 {
-    public ConsoleKeyInfo ReadKey(bool intercept)
+    public ConsoleKeyInfo ReadKey()
     {
-        return Console.ReadKey(intercept);
+        return Console.ReadKey(true);
     }
 
     public string? ReadLine()
