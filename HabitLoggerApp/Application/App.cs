@@ -18,7 +18,7 @@ public sealed class App(DatabaseManagerFactory databaseManagerFactory, IMenuChoi
         do
         {
             Console.Clear();
-            RenderMenu();
+            MenuRenderer.Render();
             var menuChoice = menuChoiceReader.GetChoice();
             switch (menuChoice)
             {
@@ -41,10 +41,5 @@ public sealed class App(DatabaseManagerFactory databaseManagerFactory, IMenuChoi
 
             break;
         } while (true);
-    }
-
-    private void RenderMenu()
-    {
-        // TODO Implement
     }
 }
