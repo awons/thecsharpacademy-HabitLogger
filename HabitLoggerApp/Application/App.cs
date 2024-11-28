@@ -26,6 +26,17 @@ public sealed class App(DatabaseManagerFactory databaseManagerFactory, IMenuChoi
                     Console.Clear();
                     Console.WriteLine("Thank you for use the Habit Logger!");
                     return;
+                case MenuChoice.ViewAllRecords:
+                    // TODO Implement
+                    break;
+                case MenuChoice.InsertRecord:
+                    //TODO Implement
+                    break;
+                case MenuChoice.DeleteRecord:
+                    // TODO Implement
+                    break;
+                case MenuChoice.EditRecord:
+                    break;
             }
 
             break;
