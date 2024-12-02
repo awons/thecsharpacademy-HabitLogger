@@ -38,8 +38,6 @@ public sealed class App(DatabaseManagerFactory databaseManagerFactory, IMenuChoi
                 case MenuChoice.EditRecord:
                     break;
             }
-
-            break;
         } while (true);
     }
 }
