@@ -142,6 +142,16 @@ public class RepositoryTests
         repository.HasHabitById(4).Should().BeTrue();
     }
 
+    [Test]
+    public void WillGetCorrectHabitsCount()
+    {
+        var repository = CreateRepository();
+
+        repository.GetHabits().Count().Should().Be(0);
+        PopulateDatabase();
+        repository.GetHabits().Count().Should().Be(3);
+    }
+
     private LibraryRepository.IRepository CreateRepository()
     {
         return new LibraryRepository.Repository((SqliteConnection)_databaseManager.GetConnection());

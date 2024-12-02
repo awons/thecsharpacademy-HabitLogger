@@ -1,4 +1,4 @@
-using System.Data;
+using Microsoft.Data.Sqlite;
 
 namespace HabitLoggerLibrary.DbManager;
 
@@ -6,5 +6,5 @@ public interface IDatabaseManager
 {
     public void SetUp();
 
-    public IDbConnection GetConnection();
+    public SqliteConnection GetConnection();
 }

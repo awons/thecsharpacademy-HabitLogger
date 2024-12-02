@@ -1,4 +1,3 @@
-using System.Data;
 using HabitLoggerLibrary.Repository;
 using Microsoft.Data.Sqlite;
 
@@ -14,12 +13,12 @@ internal sealed class DatabaseManager(SqliteConnection connection) : IDatabaseMa
             habit TEXT NOT NULL,
             quantity INTEGER NOT NULL,
             habit_date DATE NOT NULL,
-            UNIQUE(habit, quantity)
+            UNIQUE(habit, habit_date)
         )";
         command.ExecuteNonQuery();
     }
 
-    public IDbConnection GetConnection()
+    public SqliteConnection GetConnection()
     {
         return connection;
     }

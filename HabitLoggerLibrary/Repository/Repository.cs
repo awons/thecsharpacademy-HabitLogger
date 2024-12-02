@@ -81,4 +81,15 @@ internal sealed class Repository(SqliteConnection connection) : IRepository
 
         return reader.HasRows;
     }
+
+    public long GetHabitsCount()
+    {
+        var command = connection.CreateCommand();
+        command.CommandText = $"SELECT COUNT(id) FROM {IRepository.TableName}";
+
+        using var reader = command.ExecuteReader();
+        reader.Read();
+
+        return reader.GetInt64(0);
+    }
 }

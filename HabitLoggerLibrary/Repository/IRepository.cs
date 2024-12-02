@@ -15,4 +15,6 @@ public interface IRepository
     public Habit GetHabitById(long id);
 
     public bool HasHabitById(long id);
+
+    public long GetHabitsCount();
 }
