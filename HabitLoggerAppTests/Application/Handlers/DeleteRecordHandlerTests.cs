@@ -13,7 +13,6 @@ public class DeleteRecordHandlerTests : IntegrationTests
     public override void SetUp()
     {
         base.SetUp();
-        PopulateDatabase();
         _keyAwaiter.When(x => x.Wait())
             .Do(_ => { });
     }
@@ -24,6 +23,7 @@ public class DeleteRecordHandlerTests : IntegrationTests
     [Timeout(1000)]
     public void WillKeepAskingForHabitIdUtilExistingIsFound()
     {
+        PopulateDatabase();
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.GetChoice().Returns(-1, 0, 25, 5, 2);
 
@@ -37,6 +37,7 @@ public class DeleteRecordHandlerTests : IntegrationTests
     [Test]
     public void WillDeleteSelectedHabit()
     {
+        PopulateDatabase();
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.GetChoice().Returns(2);
 
@@ -47,5 +48,15 @@ public class DeleteRecordHandlerTests : IntegrationTests
         handler.Handle();
 
         repository.HasHabitById(2).Should().BeFalse();
+    }
+
+    [Test]
+    public void WillNotAllowToChooseHabitForDeletionIfNoHabitsExist()
+    {
+        var choiceReader = Substitute.For<IHabitChoiceReader>();
+        choiceReader.DidNotReceive().GetChoice();
+
+        var handler = new DeleteRecordHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        handler.Handle();
     }
 }

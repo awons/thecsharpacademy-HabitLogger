@@ -4,17 +4,22 @@ using HabitLoggerLibrary.Ui.Habits;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public class DeleteRecordHandler(
-    IHabitChoiceReader habitChoiceReader,
-    IRepository repository,
-    IKeyAwaiter keyAwaiter)
+public class DeleteRecordHandler(IHabitChoiceReader habitChoiceReader, IRepository repository, IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {
         Console.Clear();
         do
         {
-            HabitsRenderer.RenderAll(repository.GetHabits());
+            var habits = repository.GetHabits();
+            if (habits.Count == 0)
+            {
+                Console.WriteLine("No habits found. Press any key to continue.");
+                keyAwaiter.Wait();
+                return;
+            }
+
+            HabitsRenderer.RenderAll(habits);
             Console.WriteLine("Choose record to delete");
             var recordId = habitChoiceReader.GetChoice();
             if (!repository.HasHabitById(recordId))
