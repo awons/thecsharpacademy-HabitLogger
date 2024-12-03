@@ -3,7 +3,7 @@ using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Menu;
 using NSubstitute;
 
-namespace HabitLoggerLibraryTests.Ui;
+namespace HabitLoggerLibraryTests.Ui.Menu;
 
 [TestFixture]
 public class MenuChoiceReaderTests

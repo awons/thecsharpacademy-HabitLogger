@@ -1,24 +1,12 @@
 using FluentAssertions;
 using HabitLoggerLibrary;
-using HabitLoggerLibrary.DbManager;
-using Microsoft.Data.Sqlite;
 using LibraryRepository = HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerLibraryTests.Repository;
 
 [TestFixture]
-public class RepositoryTests
+public class RepositoryTests : IntegrationTests
 {
-    [SetUp]
-    public void SetUp()
-    {
-        _databaseManager = new DatabaseManagerFactory().Create(true);
-        _databaseManager.GetConnection().Open();
-        _databaseManager.SetUp();
-    }
-
-    private IDatabaseManager _databaseManager;
-
     [Test]
     public void CollectionIsEmptyWhenThereAreNoResults()
     {
@@ -154,30 +142,6 @@ public class RepositoryTests
 
     private LibraryRepository.IRepository CreateRepository()
     {
-        return new LibraryRepository.Repository((SqliteConnection)_databaseManager.GetConnection());
-    }
-
-    private void PopulateDatabase()
-    {
-        var command = _databaseManager.GetConnection().CreateCommand();
-        command.CommandText = $@"INSERT INTO {LibraryRepository.IRepository.TableName} 
-            (habit, quantity, habit_date) 
-            VALUES (@Name, @Quantity, @Date)";
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_1" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 5 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 25) });
-        command.ExecuteNonQuery();
-
-        command.Parameters.Clear();
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_2" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 4 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 26) });
-        command.ExecuteNonQuery();
-
-        command.Parameters.Clear();
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_3" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 6 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 27) });
-        command.ExecuteNonQuery();
+        return new LibraryRepository.Repository(DatabaseManager.GetConnection());
     }
 }

@@ -1,10 +1,16 @@
+using HabitLoggerApp.Application.Handlers;
 using HabitLoggerLibrary.Repository;
 using HabitLoggerLibrary.Ui;
+using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Menu;
 
 namespace HabitLoggerApp.Application;
 
-public class Loop(IMenuChoiceReader menuChoiceReader, IRepository repository, IKeyAwaiter keyAwaiter)
+public class Loop(
+    IMenuChoiceReader menuChoiceReader,
+    DeleteRecordHandler deleteRecordHandler,
+    IRepository repository,
+    IKeyAwaiter keyAwaiter)
 {
     public void Run()
     {
@@ -21,25 +27,19 @@ public class Loop(IMenuChoiceReader menuChoiceReader, IRepository repository, IK
                     return;
                 case MenuChoice.ViewAllRecords:
                     Console.Clear();
-                    RenderAllRecords();
+                    HabitsRenderer.RenderAll(repository.GetHabits());
+                    Console.WriteLine("Press any key to continue...");
+                    keyAwaiter.Wait();
                     break;
                 case MenuChoice.InsertRecord:
                     //TODO Implement
                     break;
                 case MenuChoice.DeleteRecord:
-                    // TODO Implement
+                    deleteRecordHandler.Handle();
                     break;
                 case MenuChoice.EditRecord:
                     break;
             }
         } while (true);
-    }
-
-    private void RenderAllRecords()
-    {
-        var habits = repository.GetHabits();
-        foreach (var habit in habits) Console.WriteLine($"{habit.HabitName}; {habit.Quantity}; {habit.HabitDate}");
-        Console.WriteLine("Press any key to continue...");
-        keyAwaiter.Wait();
     }
 }

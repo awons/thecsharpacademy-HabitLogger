@@ -1,8 +1,10 @@
 ﻿using HabitLoggerApp.Application;
+using HabitLoggerApp.Application.Handlers;
 using HabitLoggerApp.Fixtures;
 using HabitLoggerLibrary.DbManager;
 using HabitLoggerLibrary.Repository;
 using HabitLoggerLibrary.Ui;
+using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Menu;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,8 @@ var builder = Host.CreateDefaultBuilder()
             serviceProvider.GetService<DatabaseManagerFactory>()!.Create());
         services.AddSingleton<IRepository>(serviceProvider =>
             serviceProvider.GetService<RepositoryFactory>()!.Create());
+        services.AddSingleton<IHabitChoiceReader, ConsoleHabitReader>();
+        services.AddSingleton<DeleteRecordHandler>();
     });
 
 using var host = builder.Build();
