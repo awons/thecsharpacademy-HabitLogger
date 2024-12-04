@@ -8,9 +8,7 @@ namespace HabitLoggerApp.Application;
 public class Loop(
     IMenuChoiceReader menuChoiceReader,
     DeleteRecordHandler deleteRecordHandler,
-    ViewRecordsHandler viewRecordsHandler,
-    IRepository repository,
-    IKeyAwaiter keyAwaiter)
+    ViewRecordsHandler viewRecordsHandler)
 {
     public void Run()
     {
