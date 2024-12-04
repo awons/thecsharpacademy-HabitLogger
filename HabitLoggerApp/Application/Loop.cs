@@ -1,7 +1,6 @@
 using HabitLoggerApp.Application.Handlers;
 using HabitLoggerLibrary.Repository;
 using HabitLoggerLibrary.Ui;
-using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Menu;
 
 namespace HabitLoggerApp.Application;
@@ -9,6 +8,7 @@ namespace HabitLoggerApp.Application;
 public class Loop(
     IMenuChoiceReader menuChoiceReader,
     DeleteRecordHandler deleteRecordHandler,
+    ViewRecordsHandler viewRecordsHandler,
     IRepository repository,
     IKeyAwaiter keyAwaiter)
 {
@@ -26,10 +26,7 @@ public class Loop(
                     Console.WriteLine("Thank you for using the Habit Logger!");
                     return;
                 case MenuChoice.ViewAllRecords:
-                    Console.Clear();
-                    HabitsRenderer.RenderAll(repository.GetHabits());
-                    Console.WriteLine("Press any key to continue...");
-                    keyAwaiter.Wait();
+                    viewRecordsHandler.Handle();
                     break;
                 case MenuChoice.InsertRecord:
                     //TODO Implement
@@ -38,6 +35,7 @@ public class Loop(
                     deleteRecordHandler.Handle();
                     break;
                 case MenuChoice.EditRecord:
+                    //TODO Implement
                     break;
             }
         } while (true);

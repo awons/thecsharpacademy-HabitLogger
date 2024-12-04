@@ -4,7 +4,10 @@ using HabitLoggerLibrary.Ui.Habits;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public class DeleteRecordHandler(IHabitChoiceReader habitChoiceReader, IRepository repository, IKeyAwaiter keyAwaiter)
+public sealed class DeleteRecordHandler(
+    IHabitChoiceReader habitChoiceReader,
+    IRepository repository,
+    IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {
