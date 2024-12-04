@@ -14,7 +14,7 @@ public class DeleteRecordHandler(IHabitChoiceReader habitChoiceReader, IReposito
             var habits = repository.GetHabits();
             if (habits.Count == 0)
             {
-                Console.WriteLine("No habits found. Press any key to continue.");
+                Console.WriteLine("No habits found. Press any key to continue....");
                 keyAwaiter.Wait();
                 return;
             }
