@@ -1,6 +1,4 @@
 using HabitLoggerApp.Application.Handlers;
-using HabitLoggerLibrary.Repository;
-using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Menu;
 
 namespace HabitLoggerApp.Application;

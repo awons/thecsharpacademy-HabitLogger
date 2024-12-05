@@ -4,12 +4,12 @@ using HabitLoggerLibrary.Ui.Habits;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public sealed class ViewRecordsHandler(IRepository repository, IKeyAwaiter keyAwaiter)
+public sealed class ViewRecordsHandler(IHabitsRepository habitsRepository, IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {
         Console.Clear();
-        HabitsRenderer.RenderAll(repository.GetHabits());
+        HabitsRenderer.RenderAll(habitsRepository.GetHabits());
         Console.WriteLine("Press any key to continue...");
         keyAwaiter.Wait();
     }

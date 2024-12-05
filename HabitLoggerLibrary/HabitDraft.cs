@@ -1,3 +1,3 @@
 namespace HabitLoggerLibrary;
 
-public sealed record HabitDraft(string HabitName, int Quantity, DateOnly HabitDate);
+public sealed record HabitDraft(string HabitName, string UnitOfMeasure);

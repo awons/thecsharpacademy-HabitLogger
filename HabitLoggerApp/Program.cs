@@ -27,8 +27,8 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<IMenuChoiceReader, MenuChoiceReader>();
         services.AddSingleton<IDatabaseManager>(serviceProvider =>
             serviceProvider.GetService<DatabaseManagerFactory>()!.Create());
-        services.AddSingleton<IRepository>(serviceProvider =>
-            serviceProvider.GetService<RepositoryFactory>()!.Create());
+        services.AddSingleton<IHabitsRepository>(serviceProvider =>
+            serviceProvider.GetService<RepositoryFactory>()!.CreateHabitsRepository());
         services.AddSingleton<IHabitChoiceReader, ConsoleHabitReader>();
         services.AddSingleton<DeleteRecordHandler>();
         services.AddSingleton<ViewRecordsHandler>();

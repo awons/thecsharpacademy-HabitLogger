@@ -8,12 +8,23 @@ internal sealed class DatabaseManager(SqliteConnection connection) : IDatabaseMa
     public void SetUp()
     {
         var command = connection.CreateCommand();
-        command.CommandText = $@"CREATE TABLE IF NOT EXISTS {IRepository.TableName} (
+
+        command.CommandText = @$"CREATE TABLE IF NOT EXISTS {IHabitsRepository.TableName} (
+    id INTEGER PRIMARY KEY,
+    habit TEXT NOT NULL,
+    unit_of_measure TEXT NOT NULL,
+    UNIQUE(habit)
+)";
+        command.ExecuteNonQuery();
+
+        command = connection.CreateCommand();
+        command.CommandText = @$"CREATE TABLE IF NOT EXISTS habit_logs (
             id INTEGER PRIMARY KEY,
-            habit TEXT NOT NULL,
+            habit_id INTEGER NOT NULL,
             quantity INTEGER NOT NULL,
             habit_date DATE NOT NULL,
-            UNIQUE(habit, habit_date)
+            UNIQUE(habit_id, habit_date),
+            FOREIGN KEY(habit_id) REFERENCES {IHabitsRepository.TableName}(id) ON DELETE CASCADE
         )";
         command.ExecuteNonQuery();
     }

@@ -6,7 +6,7 @@ namespace HabitLoggerApp.Application.Handlers;
 
 public sealed class DeleteRecordHandler(
     IHabitChoiceReader habitChoiceReader,
-    IRepository repository,
+    IHabitsRepository habitsRepository,
     IKeyAwaiter keyAwaiter)
 {
     public void Handle()
@@ -14,7 +14,7 @@ public sealed class DeleteRecordHandler(
         Console.Clear();
         do
         {
-            var habits = repository.GetHabits();
+            var habits = habitsRepository.GetHabits();
             if (habits.Count == 0)
             {
                 Console.WriteLine("No habits found. Press any key to continue....");
@@ -25,14 +25,14 @@ public sealed class DeleteRecordHandler(
             HabitsRenderer.RenderAll(habits);
             Console.WriteLine("Choose record to delete");
             var recordId = habitChoiceReader.GetChoice();
-            if (!repository.HasHabitById(recordId))
+            if (!habitsRepository.HasHabitById(recordId))
             {
                 Console.Clear();
                 Console.WriteLine($"There is no record with id {recordId}. Please try again.");
                 continue;
             }
 
-            repository.DeleteHabitById(recordId);
+            habitsRepository.DeleteHabitById(recordId);
             Console.WriteLine("Record deleted. Press any key to continue...");
             keyAwaiter.Wait();
             break;

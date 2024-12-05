@@ -5,7 +5,7 @@ using LibraryRepository = HabitLoggerLibrary.Repository;
 namespace HabitLoggerLibraryTests.Repository;
 
 [TestFixture]
-public class RepositoryTests : IntegrationTests
+public class HabitsRepositoryTests : IntegrationTests
 {
     [Test]
     public void CollectionIsEmptyWhenThereAreNoResults()
@@ -31,9 +31,8 @@ public class RepositoryTests : IntegrationTests
         var habit = repository.GetHabitById(2);
 
         habit.Id.Should().Be(2);
-        habit.HabitName.Should().Be("test_habit_2");
-        habit.Quantity.Should().Be(4);
-        habit.HabitDate.Should().Be(new DateOnly(2024, 11, 26));
+        habit.HabitName.Should().Be("Swimming");
+        habit.UnitOfMeasure.Should().Be("meters");
     }
 
     [Test]
@@ -94,8 +93,7 @@ public class RepositoryTests : IntegrationTests
         var updatedHabit = repository.GetHabitById(1) with
         {
             HabitName = "updated_habit_name",
-            Quantity = 10,
-            HabitDate = new DateOnly(2024, 12, 31)
+            UnitOfMeasure = "miles"
         };
         repository.UpdateHabit(updatedHabit);
         repository.GetHabitById(1).Should().BeEquivalentTo(updatedHabit);
@@ -120,13 +118,11 @@ public class RepositoryTests : IntegrationTests
         var repository = CreateRepository();
 
         repository.HasHabitById(4).Should().BeFalse();
-        var habit = repository.AddHabit(new HabitDraft("added_habit_name", 8,
-            new DateOnly(2024, 11, 30)));
+        var habit = repository.AddHabit(new HabitDraft("added_habit_name", "kilograms"));
 
         habit.Id.Should().Be(4);
         habit.HabitName.Should().Be("added_habit_name");
-        habit.Quantity.Should().Be(8);
-        habit.HabitDate.Should().Be(new DateOnly(2024, 11, 30));
+        habit.UnitOfMeasure.Should().Be("kilograms");
         repository.HasHabitById(4).Should().BeTrue();
     }
 
@@ -140,8 +136,8 @@ public class RepositoryTests : IntegrationTests
         repository.GetHabits().Count().Should().Be(3);
     }
 
-    private LibraryRepository.IRepository CreateRepository()
+    private LibraryRepository.IHabitsRepository CreateRepository()
     {
-        return new LibraryRepository.Repository(DatabaseManager.GetConnection());
+        return new LibraryRepository.HabitsRepository(DatabaseManager.GetConnection());
     }
 }

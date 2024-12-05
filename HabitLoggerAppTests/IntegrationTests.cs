@@ -1,6 +1,5 @@
 using System.Text;
 using HabitLoggerLibrary.DbManager;
-using Microsoft.Data.Sqlite;
 using LibraryRepository = HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerAppTests;
@@ -25,29 +24,26 @@ public abstract class IntegrationTests
     protected void PopulateDatabase()
     {
         var command = DatabaseManager.GetConnection().CreateCommand();
-        command.CommandText = $@"INSERT INTO {LibraryRepository.IRepository.TableName} 
-            (habit, quantity, habit_date) 
-            VALUES (@Name, @Quantity, @Date)";
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_1" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 5 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 25) });
+        command.CommandText =
+            $"INSERT INTO {LibraryRepository.IHabitsRepository.TableName} (habit, unit_of_measure) VALUES (@Name, @UnitOfMeasure)";
+
+        command.Parameters.AddWithValue("@Name", "Running");
+        command.Parameters.AddWithValue("@UnitOfMeasure", "kilometers");
         command.ExecuteNonQuery();
 
         command.Parameters.Clear();
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_2" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 4 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 26) });
+        command.Parameters.AddWithValue("@Name", "Swimming");
+        command.Parameters.AddWithValue("@UnitOfMeasure", "meters");
         command.ExecuteNonQuery();
 
         command.Parameters.Clear();
-        command.Parameters.Add(new SqliteParameter("@Name", SqliteType.Text) { Value = "test_habit_3" });
-        command.Parameters.Add(new SqliteParameter("@Quantity", SqliteType.Integer) { Value = 6 });
-        command.Parameters.Add(new SqliteParameter("@Date", SqliteType.Text) { Value = new DateTime(2024, 11, 27) });
+        command.Parameters.AddWithValue("@Name", "Drinking water");
+        command.Parameters.AddWithValue("@UnitOfMeasure", "glasses");
         command.ExecuteNonQuery();
     }
 
-    protected LibraryRepository.IRepository CreateRepository()
+    protected LibraryRepository.IHabitsRepository CreateRepository()
     {
-        return new LibraryRepository.Repository(DatabaseManager.GetConnection());
+        return new LibraryRepository.HabitsRepository(DatabaseManager.GetConnection());
     }
 }

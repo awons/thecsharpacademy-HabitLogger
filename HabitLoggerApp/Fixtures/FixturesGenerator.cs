@@ -3,24 +3,27 @@ using HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerApp.Fixtures;
 
-public class FixturesGenerator(IRepository repository)
+public class FixturesGenerator(IHabitsRepository habitsRepository)
 {
     private readonly HabitDraft[] _drafts =
     [
-        new("Habit 1", 3, new DateOnly(2024, 12, 02)),
-        new("Habit 1", 2, new DateOnly(2024, 12, 01)),
-        new("Habit 2", 4, new DateOnly(2024, 12, 02)),
-        new("Habit 3", 2, new DateOnly(2024, 12, 01)),
-        new("Habit 2", 1, new DateOnly(2024, 11, 30)),
-        new("Habit 2", 2, new DateOnly(2024, 11, 29)),
-        new("Habit 2", 1, new DateOnly(2024, 11, 28)),
-        new("Habit 3", 3, new DateOnly(2024, 11, 27))
+        new("Running", "kilometers"),
+        new("Climbing", "meters"),
+        new("Push-ups", "repetitions"),
+        new("Drinking water", "glasses")
     ];
 
     public void Populate()
     {
-        if (repository.GetHabitsCount() > 0) return;
+        if (habitsRepository.GetHabitsCount() > 0) return;
 
-        foreach (var habitDraft in _drafts) repository.AddHabit(habitDraft);
+        foreach (var habitDraft in _drafts)
+        {
+            var habit = habitsRepository.AddHabit(habitDraft);
+            for (var i = 0; i < 100; i++)
+            {
+                //TODO
+            }
+        }
     }
 }

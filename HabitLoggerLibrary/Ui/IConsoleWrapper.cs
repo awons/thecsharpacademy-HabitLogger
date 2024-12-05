@@ -5,4 +5,6 @@ public interface IConsoleWrapper
     public ConsoleKeyInfo ReadKey();
 
     public string? ReadLine();
+
+    public void Clear();
 }

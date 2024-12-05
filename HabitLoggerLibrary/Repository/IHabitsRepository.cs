@@ -1,8 +1,8 @@
 namespace HabitLoggerLibrary.Repository;
 
-public interface IRepository
+public interface IHabitsRepository
 {
-    public const string TableName = "habit_logs";
+    public const string TableName = "habits";
 
     public List<Habit> GetHabits();
 

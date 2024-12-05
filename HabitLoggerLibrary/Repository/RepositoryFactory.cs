@@ -4,8 +4,13 @@ namespace HabitLoggerLibrary.Repository;
 
 public class RepositoryFactory(IDatabaseManager databaseManager)
 {
-    public IRepository Create()
+    public IHabitsRepository CreateHabitsRepository()
     {
-        return new Repository(databaseManager.GetConnection());
+        return new HabitsRepository(databaseManager.GetConnection());
+    }
+
+    public IHabitLogsRepository CreateHabitLogsRepository()
+    {
+        return new HabitLogsRepository(databaseManager.GetConnection());
     }
 }
