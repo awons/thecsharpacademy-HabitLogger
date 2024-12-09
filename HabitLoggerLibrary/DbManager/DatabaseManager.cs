@@ -24,7 +24,7 @@ internal sealed class DatabaseManager(SqliteConnection connection) : IDatabaseMa
             quantity INTEGER NOT NULL,
             habit_date DATE NOT NULL,
             UNIQUE(habit_id, habit_date),
-            FOREIGN KEY(habit_id) REFERENCES {IHabitsRepository.TableName}(id) ON DELETE CASCADE
+            CONSTRAINT fk_habit_id FOREIGN KEY(habit_id) REFERENCES {IHabitsRepository.TableName}(id) ON DELETE CASCADE
         )";
         command.ExecuteNonQuery();
     }

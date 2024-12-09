@@ -8,7 +8,7 @@ public interface IHabitLogsRepository
 
     public HabitLog AddHabitLog(HabitLogDraft draft);
 
-    public void UpdateHabit(HabitLog habitLog);
+    public void UpdateHabitLog(HabitLog habitLog);
 
     public void DeleteHabitLogById(long id);
 

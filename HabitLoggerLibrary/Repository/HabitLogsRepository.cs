@@ -33,7 +33,7 @@ public sealed class HabitLogsRepository(SqliteConnection connection) : IHabitLog
         return GetHabitLogById(connection.GetLastInsertRowId());
     }
 
-    public void UpdateHabit(HabitLog habitLog)
+    public void UpdateHabitLog(HabitLog habitLog)
     {
         var command = connection.CreateCommand();
         command.CommandText =
