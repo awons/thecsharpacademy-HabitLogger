@@ -7,7 +7,7 @@ using NSubstitute;
 namespace HabitLoggerAppTests.Application.Handlers;
 
 [TestFixture]
-public class DeleteRecordHandlerTests : IntegrationTests
+public class DeleteHabitHandlerTests : IntegrationTests
 {
     [SetUp]
     public void SetUp()
@@ -26,10 +26,11 @@ public class DeleteRecordHandlerTests : IntegrationTests
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.GetChoice().Returns(-1, 0, 25, 5, 2);
 
-        var handler = new DeleteRecordHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
         handler.Handle();
 
-        ConsoleOutput.ToString().Split(Environment.NewLine).Where(x => x == "Choose record to delete").Should()
+        ConsoleOutput.ToString().Split(Environment.NewLine)
+            .Where(x => x == "Choose habit to delete. All logs for it will also be deleted.").Should()
             .HaveCount(5);
     }
 
@@ -43,7 +44,7 @@ public class DeleteRecordHandlerTests : IntegrationTests
         var repository = CreateRepository();
         repository.HasHabitById(2).Should().BeTrue();
 
-        var handler = new DeleteRecordHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
         handler.Handle();
 
         repository.HasHabitById(2).Should().BeFalse();
@@ -55,7 +56,7 @@ public class DeleteRecordHandlerTests : IntegrationTests
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.DidNotReceive().GetChoice();
 
-        var handler = new DeleteRecordHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
         handler.Handle();
     }
 }

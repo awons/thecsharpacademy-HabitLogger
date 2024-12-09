@@ -4,7 +4,7 @@ using HabitLoggerLibrary.Ui.Habits;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public sealed class ViewRecordsHandler(IHabitsRepository habitsRepository, IKeyAwaiter keyAwaiter)
+public sealed class ViewHabitsHandler(IHabitsRepository habitsRepository, IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {

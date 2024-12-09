@@ -2,7 +2,7 @@ using HabitLoggerLibrary.Ui;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public sealed class InsertRecordHandler(IConsoleWrapper consoleWrapper)
+public sealed class InsertHabitHandler(IConsoleWrapper consoleWrapper)
 {
     public void Handle()
     {

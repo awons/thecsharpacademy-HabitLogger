@@ -30,8 +30,8 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<IHabitsRepository>(serviceProvider =>
             serviceProvider.GetService<RepositoryFactory>()!.CreateHabitsRepository());
         services.AddSingleton<IHabitChoiceReader, ConsoleHabitReader>();
-        services.AddSingleton<DeleteRecordHandler>();
-        services.AddSingleton<ViewRecordsHandler>();
+        services.AddSingleton<DeleteHabitHandler>();
+        services.AddSingleton<ViewHabitsHandler>();
     });
 
 using var host = builder.Build();
