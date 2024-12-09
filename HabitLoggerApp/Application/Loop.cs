@@ -6,7 +6,8 @@ namespace HabitLoggerApp.Application;
 public class Loop(
     IMainMenuChoiceReader mainMenuChoiceReader,
     DeleteHabitHandler deleteHabitHandler,
-    ViewHabitsHandler viewHabitsHandler)
+    ViewHabitsHandler viewHabitsHandler,
+    InsertHabitHandler insertHabitHandler)
 {
     public void Run()
     {
@@ -25,7 +26,7 @@ public class Loop(
                     viewHabitsHandler.Handle();
                     break;
                 case MainMenuChoice.InsertHabit:
-                    //TODO Implement
+                    insertHabitHandler.Handle();
                     break;
                 case MainMenuChoice.DeleteHAbit:
                     deleteHabitHandler.Handle();

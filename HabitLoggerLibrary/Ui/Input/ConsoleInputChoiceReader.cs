@@ -7,12 +7,12 @@ public sealed class ConsoleInputChoiceReader(IConsoleWrapper consoleWrapper)
     {
         var positionLeft = Console.CursorLeft;
         var positionTop = Console.CursorTop;
-        Console.WriteLine("How do you want to provide input?");
         char choice;
         do
         {
             Console.SetCursorPosition(positionLeft, positionTop);
-            Console.WriteLine(new string(' ', Console.WindowWidth));
+            Console.Write(new string(' ', Console.WindowWidth - 1));
+            Console.SetCursorPosition(positionLeft, positionTop);
             Console.Write("> ");
             choice = consoleWrapper.ReadKey().KeyChar;
         } while (!Enum.IsDefined(typeof(InputChoice), (int)choice));
