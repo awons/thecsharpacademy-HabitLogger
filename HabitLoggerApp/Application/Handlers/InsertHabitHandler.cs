@@ -1,11 +1,12 @@
-using HabitLoggerLibrary.Ui;
+using HabitLoggerLibrary.Ui.Input;
 
 namespace HabitLoggerApp.Application.Handlers;
 
-public sealed class InsertHabitHandler(IConsoleWrapper consoleWrapper)
+public sealed class InsertHabitHandler(IInputChoiceReader inputChoiceReader)
 {
     public void Handle()
     {
-        consoleWrapper.Clear();
+        Console.Clear();
+        var inputChoice = inputChoiceReader.GetChoice();
     }
 }

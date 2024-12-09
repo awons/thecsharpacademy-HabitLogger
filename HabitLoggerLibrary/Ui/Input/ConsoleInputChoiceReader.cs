@@ -1,14 +1,22 @@
 namespace HabitLoggerLibrary.Ui.Input;
 
-public sealed class ConsoleInputChoiceReader(IConsoleWrapper consoleWrapper, IKeyAwaiter keyAwaiter)
+public sealed class ConsoleInputChoiceReader(IConsoleWrapper consoleWrapper)
     : IInputChoiceReader
 {
     public InputChoice GetChoice()
     {
-        throw new NotImplementedException();
-        consoleWrapper.Clear();
-        Console.WriteLine("Choose how you want to add new habit:");
-        Console.WriteLine($"{Convert.ToChar(InputChoice.ConsoleInput): Console}");
-        Console.WriteLine($"{Convert.ToChar(InputChoice.SpeechInput): Console}");
+        var positionLeft = Console.CursorLeft;
+        var positionTop = Console.CursorTop;
+        Console.WriteLine("How do you want to provide input?");
+        char choice;
+        do
+        {
+            Console.SetCursorPosition(positionLeft, positionTop);
+            Console.WriteLine(new string(' ', Console.WindowWidth));
+            Console.Write("> ");
+            choice = consoleWrapper.ReadKey().KeyChar;
+        } while (!Enum.IsDefined(typeof(InputChoice), (int)choice));
+
+        return (InputChoice)choice;
     }
 }

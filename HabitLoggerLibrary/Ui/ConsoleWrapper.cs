@@ -11,9 +11,4 @@ public sealed class ConsoleWrapper : IConsoleWrapper
     {
         return Console.ReadLine();
     }
-
-    public void Clear()
-    {
-        Console.Clear();
-    }
 }
