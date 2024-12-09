@@ -4,7 +4,7 @@ using HabitLoggerLibrary.Ui.Menu;
 namespace HabitLoggerApp.Application;
 
 public class Loop(
-    IMenuChoiceReader menuChoiceReader,
+    IMainMenuChoiceReader mainMenuChoiceReader,
     DeleteRecordHandler deleteRecordHandler,
     ViewRecordsHandler viewRecordsHandler)
 {
@@ -13,24 +13,27 @@ public class Loop(
         do
         {
             Console.Clear();
-            MenuRenderer.Render();
-            var menuChoice = menuChoiceReader.GetChoice();
+            MainMenuRenderer.Render();
+            var menuChoice = mainMenuChoiceReader.GetChoice();
             switch (menuChoice)
             {
-                case MenuChoice.Quit:
+                case MainMenuChoice.Quit:
                     Console.Clear();
                     Console.WriteLine("Thank you for using the Habit Logger!");
                     return;
-                case MenuChoice.ViewAllRecords:
+                case MainMenuChoice.ViewAllHabits:
                     viewRecordsHandler.Handle();
                     break;
-                case MenuChoice.InsertRecord:
+                case MainMenuChoice.InsertHabit:
                     //TODO Implement
                     break;
-                case MenuChoice.DeleteRecord:
+                case MainMenuChoice.DeleteHAbit:
                     deleteRecordHandler.Handle();
                     break;
-                case MenuChoice.EditRecord:
+                case MainMenuChoice.EditHabit:
+                    //TODO Implement
+                    break;
+                case MainMenuChoice.HabitLogs:
                     //TODO Implement
                     break;
             }

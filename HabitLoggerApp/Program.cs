@@ -24,7 +24,7 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<FixturesGenerator>();
         services.AddSingleton<IKeyAwaiter, ConsoleKeyAwaiter>();
         services.AddSingleton<IConsoleWrapper, ConsoleWrapper>();
-        services.AddSingleton<IMenuChoiceReader, MenuChoiceReader>();
+        services.AddSingleton<IMainMenuChoiceReader, MainMenuChoiceReader>();
         services.AddSingleton<IDatabaseManager>(serviceProvider =>
             serviceProvider.GetService<DatabaseManagerFactory>()!.Create());
         services.AddSingleton<IHabitsRepository>(serviceProvider =>

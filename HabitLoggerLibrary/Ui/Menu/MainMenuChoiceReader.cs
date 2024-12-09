@@ -1,8 +1,8 @@
 namespace HabitLoggerLibrary.Ui.Menu;
 
-public sealed class MenuChoiceReader(IConsoleWrapper consoleWrapper) : IMenuChoiceReader
+public sealed class MainMenuChoiceReader(IConsoleWrapper consoleWrapper) : IMainMenuChoiceReader
 {
-    public MenuChoice GetChoice()
+    public MainMenuChoice GetChoice()
     {
         var leftPosition = Console.CursorLeft;
         var topPosition = Console.CursorTop;
@@ -14,8 +14,8 @@ public sealed class MenuChoiceReader(IConsoleWrapper consoleWrapper) : IMenuChoi
             Console.SetCursorPosition(leftPosition, topPosition);
             Console.Write("> ");
             choice = consoleWrapper.ReadKey().KeyChar;
-        } while (!Enum.IsDefined(typeof(MenuChoice), (int)choice));
+        } while (!Enum.IsDefined(typeof(MainMenuChoice), (int)choice));
 
-        return (MenuChoice)choice;
+        return (MainMenuChoice)choice;
     }
 }
