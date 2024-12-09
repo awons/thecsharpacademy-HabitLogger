@@ -4,14 +4,14 @@ using LibraryRepository = HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerAppTests;
 
-public abstract class IntegrationTests
+public abstract class IntegrationTests : ConsoleTest
 {
     private IDatabaseManager DatabaseManager { get; set; }
 
     protected StringBuilder ConsoleOutput { get; private set; }
 
     [SetUp]
-    public virtual void SetUp()
+    public void SetUpDatabase()
     {
         DatabaseManager = new DatabaseManagerFactory().Create(true);
         DatabaseManager.GetConnection().Open();

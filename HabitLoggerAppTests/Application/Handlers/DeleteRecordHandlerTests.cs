@@ -10,9 +10,8 @@ namespace HabitLoggerAppTests.Application.Handlers;
 public class DeleteRecordHandlerTests : IntegrationTests
 {
     [SetUp]
-    public override void SetUp()
+    public void SetUp()
     {
-        base.SetUp();
         _keyAwaiter.When(x => x.Wait())
             .Do(_ => { });
     }

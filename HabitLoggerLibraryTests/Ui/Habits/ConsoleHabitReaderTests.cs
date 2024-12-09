@@ -6,7 +6,7 @@ using NSubstitute;
 namespace HabitLoggerLibraryTests.Ui.Habits;
 
 [TestFixture]
-public class ConsoleHabitReaderTests
+public class ConsoleHabitReaderTests : ConsoleTest
 {
     [Test]
     public void WillReturnCorrectValue()
