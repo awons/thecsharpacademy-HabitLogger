@@ -11,7 +11,7 @@ public sealed class ConsoleInputChoiceReader(IConsoleWrapper consoleWrapper)
         do
         {
             Console.SetCursorPosition(positionLeft, positionTop);
-            Console.Write(new string(' ', Console.WindowWidth - 1));
+            Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(positionLeft, positionTop);
             Console.Write("> ");
             choice = consoleWrapper.ReadKey().KeyChar;

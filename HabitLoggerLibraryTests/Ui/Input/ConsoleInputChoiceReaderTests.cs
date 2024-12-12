@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace HabitLoggerLibraryTests.Ui.Input;
 
-public class ConsoleInputChoiceReaderTests
+public class ConsoleInputChoiceReaderTests : ConsoleTest
 {
     private static (ConsoleKeyInfo input, InputChoice expectedChoice)[] _validChoices =
     [
