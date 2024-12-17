@@ -38,6 +38,8 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<IInputReaderFactory, InputReaderFactory>();
         services.AddSingleton<EditHabitHandler>();
         services.AddSingleton<IInputReaderSelector, InputReaderSelector>();
+        services.AddSingleton<HabitLogsMainMenuHandler>();
+        services.AddSingleton<IHabitLogsMenuChoiceReader, HabitLogsMenuChoiceReader>();
     });
 
 using var host = builder.Build();

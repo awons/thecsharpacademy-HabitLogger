@@ -8,7 +8,8 @@ public class Loop(
     DeleteHabitHandler deleteHabitHandler,
     ViewHabitsHandler viewHabitsHandler,
     InsertHabitHandler insertHabitHandler,
-    EditHabitHandler editHabitHandler)
+    EditHabitHandler editHabitHandler,
+    HabitLogsMainMenuHandler habitLogsMainMenuHandler)
 {
     public void Run()
     {
@@ -36,7 +37,7 @@ public class Loop(
                     editHabitHandler.Handle();
                     break;
                 case MainMenuChoice.HabitLogs:
-                    //TODO Implement
+                    habitLogsMainMenuHandler.Handle();
                     break;
             }
         } while (true);
