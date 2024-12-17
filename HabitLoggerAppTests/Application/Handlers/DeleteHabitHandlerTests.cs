@@ -19,22 +19,6 @@ public class DeleteHabitHandlerTests : IntegrationTests
     private readonly IKeyAwaiter _keyAwaiter = Substitute.For<IKeyAwaiter>();
 
     [Test]
-    [Timeout(1000)]
-    public void WillKeepAskingForHabitIdUtilExistingIsFound()
-    {
-        PopulateDatabase();
-        var choiceReader = Substitute.For<IHabitChoiceReader>();
-        choiceReader.GetChoice().Returns(-1, 0, 25, 5, 2);
-
-        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
-        handler.Handle();
-
-        ConsoleOutput.ToString().Split(Environment.NewLine)
-            .Where(x => x == "Choose habit to delete. All logs for it will also be deleted.").Should()
-            .HaveCount(5);
-    }
-
-    [Test]
     public void WillDeleteSelectedHabit()
     {
         PopulateDatabase();

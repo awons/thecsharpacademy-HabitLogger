@@ -4,12 +4,12 @@ using LibraryRepository = HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerLibraryTests;
 
-public abstract class IntegrationTests
+public abstract class IntegrationTests : ConsoleTest
 {
     protected IDatabaseManager DatabaseManager { get; private set; }
 
     [SetUp]
-    public void SetUp()
+    public void SetUpDatabase()
     {
         DatabaseManager = new DatabaseManagerFactory().Create(true);
         DatabaseManager.GetConnection().Open();
@@ -57,5 +57,10 @@ public abstract class IntegrationTests
         command.Parameters.AddWithValue("@Quantity", quantity);
         command.Parameters.AddWithValue("@Date", date);
         command.ExecuteNonQuery();
+    }
+
+    protected LibraryRepository.IHabitsRepository CreateRepository()
+    {
+        return new LibraryRepository.HabitsRepository(DatabaseManager.GetConnection());
     }
 }

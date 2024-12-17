@@ -1,22 +1,36 @@
+using HabitLoggerLibrary.Repository;
+
 namespace HabitLoggerLibrary.Ui.Habits;
 
-public class ConsoleHabitReader(IConsoleWrapper consoleWrapper) : IHabitChoiceReader
+public class ConsoleHabitReader(IConsoleWrapper consoleWrapper, IHabitsRepository repository) : IHabitChoiceReader
 {
     public long GetChoice()
     {
         var positionLeft = Console.CursorLeft;
         var positionTop = Console.CursorTop;
-        string? line;
-        long choice;
         do
         {
             Console.SetCursorPosition(positionLeft, positionTop);
             Console.WriteLine(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(positionLeft, positionTop);
             Console.Write("> ");
-            line = consoleWrapper.ReadLine();
-        } while (!long.TryParse(line, out choice));
+            var line = consoleWrapper.ReadLine();
 
-        return choice;
+            if (!long.TryParse(line, out var choice)) continue;
+
+            var currentPositionTop = Console.CursorTop;
+            if (!repository.HasHabitById(choice))
+            {
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(positionLeft, currentPositionTop);
+                Console.WriteLine($"There is no habit with id {choice}. Please try again...");
+                continue;
+            }
+
+            Console.SetCursorPosition(positionLeft, currentPositionTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+
+            return choice;
+        } while (true);
     }
 }

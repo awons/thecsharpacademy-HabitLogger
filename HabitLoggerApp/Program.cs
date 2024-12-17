@@ -36,6 +36,8 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<InsertHabitHandler>();
         services.AddSingleton<IInputChoiceReader, ConsoleInputChoiceReader>();
         services.AddSingleton<IInputReaderFactory, InputReaderFactory>();
+        services.AddSingleton<EditHabitHandler>();
+        services.AddSingleton<IInputReaderSelector, InputReaderSelector>();
     });
 
 using var host = builder.Build();

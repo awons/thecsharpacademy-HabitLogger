@@ -6,22 +6,13 @@ using HabitLoggerLibrary.Ui.Input;
 namespace HabitLoggerApp.Application.Handlers;
 
 public sealed class InsertHabitHandler(
-    IInputChoiceReader inputChoiceReader,
-    IInputReaderFactory inputReaderFactory,
+    IInputReaderSelector inputReaderSelector,
     IHabitsRepository repository,
     IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {
-        Console.Clear();
-
-        Console.WriteLine("How do you want to provide input?");
-        Console.WriteLine($@"{Convert.ToChar(InputChoice.ConsoleInput)}: Console
-{Convert.ToChar(InputChoice.SpeechInput)}: Speech");
-
-        var inputChoice = inputChoiceReader.GetChoice();
-        var inputReader = inputReaderFactory.Create(inputChoice);
-
+        var inputReader = inputReaderSelector.GetInputReader();
         Console.Clear();
         Console.WriteLine("Provide habit name");
         var habitName = inputReader.GetInput();

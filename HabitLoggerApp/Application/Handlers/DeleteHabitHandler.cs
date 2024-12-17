@@ -12,7 +12,7 @@ public sealed class DeleteHabitHandler(
     public void Handle()
     {
         Console.Clear();
-        do
+        while (true)
         {
             var habits = habitsRepository.GetHabits();
             if (habits.Count == 0)
@@ -25,17 +25,10 @@ public sealed class DeleteHabitHandler(
             HabitsRenderer.RenderAll(habits);
             Console.WriteLine("Choose habit to delete. All logs for it will also be deleted.");
             var recordId = habitChoiceReader.GetChoice();
-            if (!habitsRepository.HasHabitById(recordId))
-            {
-                Console.Clear();
-                Console.WriteLine($"There is no habit with id {recordId}. Please try again.");
-                continue;
-            }
-
             habitsRepository.DeleteHabitById(recordId);
             Console.WriteLine("Habit deleted. Press any key to continue...");
             keyAwaiter.Wait();
             break;
-        } while (true);
+        }
     }
 }
