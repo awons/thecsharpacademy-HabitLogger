@@ -41,6 +41,9 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<IInputReaderSelector, InputReaderSelector>();
         services.AddSingleton<HabitLogsMainMenuHandler>();
         services.AddSingleton<IHabitLogsMenuChoiceReader, HabitLogsMenuChoiceReader>();
+        services.AddSingleton<ViewHabitLogsHandler>();
+        services.AddSingleton<IHabitLogsRepository>(serviceProvider =>
+            serviceProvider.GetService<RepositoryFactory>()!.CreateHabitLogsRepository());
     });
 
 using var host = builder.Build();

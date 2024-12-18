@@ -16,5 +16,7 @@ public interface IHabitLogsRepository
 
     public bool HasHabitLogById(long id);
 
+    public bool HasHabitLogByHabitIdAndDate(long habitId, DateOnly date);
+
     public long GetHabitLogsCount();
 }

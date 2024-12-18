@@ -34,6 +34,8 @@ public class HabitLogsRepositoryTest : IntegrationTests
         habit.HabitId.Should().Be(2);
         habit.Quantity.Should().Be(6);
         habit.HabitDate.Should().Be(new DateOnly(2020, 4, 1));
+        habit.HabitName.Should().Be("Swimming");
+        habit.HabitUnitOfMeasure.Should().Be("meters");
     }
 
     [Test]

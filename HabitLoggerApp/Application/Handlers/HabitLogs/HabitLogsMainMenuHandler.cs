@@ -2,7 +2,9 @@ using HabitLoggerLibrary.Ui.Menu;
 
 namespace HabitLoggerApp.Application.Handlers.HabitLogs;
 
-public class HabitLogsMainMenuHandler(IHabitLogsMenuChoiceReader choiceReader)
+public class HabitLogsMainMenuHandler(
+    IHabitLogsMenuChoiceReader choiceReader,
+    ViewHabitLogsHandler viewHabitLogsHandler)
 {
     public void Handle()
     {
@@ -27,7 +29,7 @@ public class HabitLogsMainMenuHandler(IHabitLogsMenuChoiceReader choiceReader)
                     // TODO Implement
                     break;
                 case HabitLogsMenuChoice.ViewAllLogs:
-
+                    viewHabitLogsHandler.Handle();
                     break;
             }
         } while (true);
