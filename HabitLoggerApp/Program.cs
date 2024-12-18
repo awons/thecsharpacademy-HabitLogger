@@ -1,5 +1,6 @@
 ﻿using HabitLoggerApp.Application;
-using HabitLoggerApp.Application.Handlers;
+using HabitLoggerApp.Application.Handlers.HabitLogs;
+using HabitLoggerApp.Application.Handlers.Habits;
 using HabitLoggerApp.Fixtures;
 using HabitLoggerLibrary.DbManager;
 using HabitLoggerLibrary.Repository;

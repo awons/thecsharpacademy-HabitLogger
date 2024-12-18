@@ -1,10 +1,10 @@
 using FluentAssertions;
-using HabitLoggerApp.Application.Handlers;
+using HabitLoggerApp.Application.Handlers.Habits;
 using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Habits;
 using NSubstitute;
 
-namespace HabitLoggerAppTests.Application.Handlers;
+namespace HabitLoggerAppTests.Application.Handlers.Habits;
 
 [TestFixture]
 public class DeleteHabitHandlerTests : IntegrationTests

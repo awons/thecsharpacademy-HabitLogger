@@ -1,11 +1,11 @@
 using FluentAssertions;
-using HabitLoggerApp.Application.Handlers;
+using HabitLoggerApp.Application.Handlers.Habits;
 using HabitLoggerLibrary;
 using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Input;
 using NSubstitute;
 
-namespace HabitLoggerAppTests.Application.Handlers;
+namespace HabitLoggerAppTests.Application.Handlers.Habits;
 
 public class InsertHabitHandlerTests : IntegrationTests
 {

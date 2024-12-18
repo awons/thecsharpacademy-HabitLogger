@@ -3,7 +3,7 @@ using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
 
-namespace HabitLoggerApp.Application.Handlers;
+namespace HabitLoggerApp.Application.Handlers.Habits;
 
 public sealed class EditHabitHandler(
     IHabitsRepository repository,
