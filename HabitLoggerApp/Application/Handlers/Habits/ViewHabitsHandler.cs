@@ -9,7 +9,7 @@ public sealed class ViewHabitsHandler(IHabitsRepository habitsRepository, IKeyAw
     public void Handle()
     {
         Console.Clear();
-        HabitsRenderer.RenderAll(habitsRepository.GetHabits());
+        HabitsRenderer.Render(habitsRepository.GetHabits());
         Console.WriteLine("Press any key to continue...");
         keyAwaiter.Wait();
     }

@@ -12,23 +12,19 @@ public sealed class DeleteHabitHandler(
     public void Handle()
     {
         Console.Clear();
-        while (true)
+        var habits = habitsRepository.GetHabits();
+        if (habits.Count == 0)
         {
-            var habits = habitsRepository.GetHabits();
-            if (habits.Count == 0)
-            {
-                Console.WriteLine("No habits found. Press any key to continue....");
-                keyAwaiter.Wait();
-                return;
-            }
-
-            HabitsRenderer.RenderAll(habits);
-            Console.WriteLine("Choose habit to delete. All logs for it will also be deleted.");
-            var recordId = habitChoiceReader.GetChoice();
-            habitsRepository.DeleteHabitById(recordId);
-            Console.WriteLine("Habit deleted. Press any key to continue...");
+            Console.WriteLine("No habits found. Press any key to continue....");
             keyAwaiter.Wait();
-            break;
+            return;
         }
+
+        HabitsRenderer.Render(habits);
+        Console.WriteLine("Choose habit to delete. All logs for it will also be deleted.");
+        var recordId = habitChoiceReader.GetChoice();
+        habitsRepository.DeleteHabitById(recordId);
+        Console.WriteLine("Habit deleted. Press any key to continue...");
+        keyAwaiter.Wait();
     }
 }

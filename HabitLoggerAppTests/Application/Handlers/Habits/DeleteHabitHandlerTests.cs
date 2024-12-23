@@ -25,10 +25,10 @@ public class DeleteHabitHandlerTests : IntegrationTests
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.GetChoice().Returns(2);
 
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
         repository.HasHabitById(2).Should().BeTrue();
 
-        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        var handler = new DeleteHabitHandler(choiceReader, CreateHabitsRepository(), _keyAwaiter);
         handler.Handle();
 
         repository.HasHabitById(2).Should().BeFalse();
@@ -40,7 +40,7 @@ public class DeleteHabitHandlerTests : IntegrationTests
         var choiceReader = Substitute.For<IHabitChoiceReader>();
         choiceReader.DidNotReceive().GetChoice();
 
-        var handler = new DeleteHabitHandler(choiceReader, CreateRepository(), _keyAwaiter);
+        var handler = new DeleteHabitHandler(choiceReader, CreateHabitsRepository(), _keyAwaiter);
         handler.Handle();
     }
 }

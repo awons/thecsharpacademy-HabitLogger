@@ -2,7 +2,7 @@ using HabitLoggerLibrary.Repository;
 
 namespace HabitLoggerLibrary.Ui.Habits;
 
-public class ConsoleHabitReader(IConsoleWrapper consoleWrapper, IHabitsRepository repository) : IHabitChoiceReader
+public class ConsoleHabitChoiceReader(IConsoleWrapper consoleWrapper, IHabitsRepository repository) : IHabitChoiceReader
 {
     public long GetChoice()
     {

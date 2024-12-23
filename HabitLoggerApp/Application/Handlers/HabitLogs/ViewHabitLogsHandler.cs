@@ -1,5 +1,6 @@
 using HabitLoggerLibrary.Repository;
 using HabitLoggerLibrary.Ui;
+using HabitLoggerLibrary.Ui.HabitLogs;
 
 namespace HabitLoggerApp.Application.Handlers.HabitLogs;
 
@@ -9,9 +10,7 @@ public sealed class ViewHabitLogsHandler(IHabitLogsRepository repository, IKeyAw
     {
         Console.Clear();
         var logs = repository.GetHabitLogs();
-        foreach (var habitLog in logs)
-            Console.WriteLine(
-                $"{habitLog.Id}; {habitLog.HabitName}; {habitLog.HabitUnitOfMeasure}: {habitLog.Quantity}; {habitLog.HabitDate}");
+        HabitLogsRenderer.Render(logs);
         Console.WriteLine("Press any key to continue...");
         keyAwaiter.Wait();
     }

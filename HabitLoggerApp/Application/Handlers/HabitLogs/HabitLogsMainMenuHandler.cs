@@ -4,7 +4,8 @@ namespace HabitLoggerApp.Application.Handlers.HabitLogs;
 
 public class HabitLogsMainMenuHandler(
     IHabitLogsMenuChoiceReader choiceReader,
-    ViewHabitLogsHandler viewHabitLogsHandler)
+    ViewHabitLogsHandler viewHabitLogsHandler,
+    DeleteHabitLogHandler deleteHabitLogHandler)
 {
     public void Handle()
     {
@@ -20,7 +21,7 @@ public class HabitLogsMainMenuHandler(
                 case HabitLogsMenuChoice.GoBack:
                     return;
                 case HabitLogsMenuChoice.DeleteLogEntry:
-                    // TODO Implement
+                    deleteHabitLogHandler.Handle();
                     break;
                 case HabitLogsMenuChoice.EditLogEntry:
                     // TODO Implement

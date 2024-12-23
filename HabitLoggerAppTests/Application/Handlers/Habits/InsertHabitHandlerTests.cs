@@ -19,7 +19,7 @@ public class InsertHabitHandlerTests : IntegrationTests
 
         var keyAwaiter = Substitute.For<IKeyAwaiter>();
         keyAwaiter.When(x => x.Wait()).Do(_ => { });
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.HasHabitById(1).Should().BeFalse();
         var handler = new InsertHabitHandler(inputReaderSelector, repository, keyAwaiter);

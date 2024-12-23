@@ -5,6 +5,7 @@ using HabitLoggerApp.Fixtures;
 using HabitLoggerLibrary.DbManager;
 using HabitLoggerLibrary.Repository;
 using HabitLoggerLibrary.Ui;
+using HabitLoggerLibrary.Ui.HabitLogs;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
 using HabitLoggerLibrary.Ui.Menu;
@@ -31,7 +32,7 @@ var builder = Host.CreateDefaultBuilder()
             serviceProvider.GetService<DatabaseManagerFactory>()!.Create());
         services.AddSingleton<IHabitsRepository>(serviceProvider =>
             serviceProvider.GetService<RepositoryFactory>()!.CreateHabitsRepository());
-        services.AddSingleton<IHabitChoiceReader, ConsoleHabitReader>();
+        services.AddSingleton<IHabitChoiceReader, ConsoleHabitChoiceReader>();
         services.AddSingleton<DeleteHabitHandler>();
         services.AddSingleton<ViewHabitsHandler>();
         services.AddSingleton<InsertHabitHandler>();
@@ -44,6 +45,8 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<ViewHabitLogsHandler>();
         services.AddSingleton<IHabitLogsRepository>(serviceProvider =>
             serviceProvider.GetService<RepositoryFactory>()!.CreateHabitLogsRepository());
+        services.AddSingleton<DeleteHabitLogHandler>();
+        services.AddSingleton<IHabitLogChoiceReader, ConsoleHabitLogChoiceReader>();
     });
 
 using var host = builder.Build();

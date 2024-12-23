@@ -13,7 +13,7 @@ public class EditHabitHandlerTests : IntegrationTests
     public void WillEditSelectedHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         var keyAwaiter = Substitute.For<IKeyAwaiter>();
         keyAwaiter.When(x => x.Wait()).Do(_ => { });

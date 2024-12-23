@@ -23,7 +23,7 @@ public sealed class EditHabitHandler(
             return;
         }
 
-        HabitsRenderer.RenderAll(habits);
+        HabitsRenderer.Render(habits);
         Console.WriteLine("Choose habit to edit.");
         var habit = repository.GetHabitById(habitChoiceReader.GetChoice());
 

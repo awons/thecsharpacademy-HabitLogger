@@ -6,7 +6,7 @@ using NSubstitute;
 namespace HabitLoggerLibraryTests.Ui.Habits;
 
 [TestFixture]
-public class ConsoleHabitReaderTests : IntegrationTests
+public class ConsoleHabitChoiceReaderTests : IntegrationTests
 {
     [Test]
     public void WillReturnCorrectValue()
@@ -15,7 +15,7 @@ public class ConsoleHabitReaderTests : IntegrationTests
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("a", "ab", "12.23", "22,11", "1");
 
-        var reader = new ConsoleHabitReader(consoleWrapper, CreateRepository());
+        var reader = new ConsoleHabitChoiceReader(consoleWrapper, CreateRepository());
         reader.GetChoice().Should().Be(1);
     }
 
@@ -26,7 +26,7 @@ public class ConsoleHabitReaderTests : IntegrationTests
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("99", "89", "79", "69", "1");
 
-        var reader = new ConsoleHabitReader(consoleWrapper, CreateRepository());
+        var reader = new ConsoleHabitChoiceReader(consoleWrapper, CreateRepository());
         reader.GetChoice().Should().Be(1);
     }
 }
