@@ -1,6 +1,6 @@
 namespace HabitLoggerLibrary.Ui.Input;
 
-public interface IInputReader
+public interface IStringInputReader
 {
     public string GetInput();
 }

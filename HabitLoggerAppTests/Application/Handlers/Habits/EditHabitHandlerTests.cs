@@ -21,7 +21,7 @@ public class EditHabitHandlerTests : IntegrationTests
         var habitChoiceReader = Substitute.For<IHabitChoiceReader>();
         habitChoiceReader.GetChoice().Returns(1);
 
-        var inputReader = Substitute.For<IInputReader>();
+        var inputReader = Substitute.For<IStringInputReader>();
         inputReader.GetInput().Returns("new habit name", "new unit of measure");
         var inputReaderSelector = Substitute.For<IInputReaderSelector>();
         inputReaderSelector.GetInputReader().Returns(inputReader);

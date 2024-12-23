@@ -3,7 +3,7 @@ namespace HabitLoggerLibrary.Ui.Input;
 public class InputReaderSelector(IInputReaderFactory inputReaderFactory, IInputChoiceReader inputChoiceReader)
     : IInputReaderSelector
 {
-    public IInputReader GetInputReader()
+    public IStringInputReader GetInputReader()
     {
         Console.Clear();
         Console.WriteLine("How do you want to provide input?");
