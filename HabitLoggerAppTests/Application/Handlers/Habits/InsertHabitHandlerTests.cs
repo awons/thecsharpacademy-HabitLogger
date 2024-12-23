@@ -3,6 +3,7 @@ using HabitLoggerApp.Application.Handlers.Habits;
 using HabitLoggerLibrary;
 using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Input;
+using HabitLoggerLibrary.Ui.Input.StringInput;
 using NSubstitute;
 
 namespace HabitLoggerAppTests.Application.Handlers.Habits;
@@ -12,7 +13,7 @@ public class InsertHabitHandlerTests : IntegrationTests
     [Test]
     public void WillAddHabit()
     {
-        var inputReader = Substitute.For<IInputReader>();
+        var inputReader = Substitute.For<IStringInputReader>();
         inputReader.GetInput().Returns("Some habit name", "kilometers");
         var inputReaderSelector = Substitute.For<IInputReaderSelector>();
         inputReaderSelector.GetInputReader().Returns(inputReader);

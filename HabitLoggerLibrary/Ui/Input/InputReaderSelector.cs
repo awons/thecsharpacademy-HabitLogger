@@ -1,9 +1,13 @@
+using HabitLoggerLibrary.Ui.Input.StringInput;
+
 namespace HabitLoggerLibrary.Ui.Input;
 
-public class InputReaderSelector(IInputReaderFactory inputReaderFactory, IInputChoiceReader inputChoiceReader)
+public class InputReaderSelector(
+    IStringInputReaderFactory stringInputReaderFactory,
+    IInputChoiceReader inputChoiceReader)
     : IInputReaderSelector
 {
-    public IInputReader GetInputReader()
+    public IStringInputReader GetInputReader()
     {
         Console.Clear();
         Console.WriteLine("How do you want to provide input?");
@@ -12,6 +16,6 @@ public class InputReaderSelector(IInputReaderFactory inputReaderFactory, IInputC
 
         var inputChoice = inputChoiceReader.GetChoice();
 
-        return inputReaderFactory.Create(inputChoice);
+        return stringInputReaderFactory.Create(inputChoice);
     }
 }

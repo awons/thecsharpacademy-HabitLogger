@@ -1,11 +1,11 @@
 using FluentAssertions;
 using HabitLoggerLibrary.Ui;
-using HabitLoggerLibrary.Ui.Input;
+using HabitLoggerLibrary.Ui.Input.StringInput;
 using NSubstitute;
 
-namespace HabitLoggerLibraryTests.Ui.Input;
+namespace HabitLoggerLibraryTests.Ui.Input.StringInput;
 
-public class ConsoleInputReaderTests : ConsoleTest
+public class ConsoleStringInputReaderTests : ConsoleTest
 {
     [Test]
     public void WillReturnProvidedInput()
@@ -13,7 +13,7 @@ public class ConsoleInputReaderTests : ConsoleTest
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("Provided text");
 
-        var reader = new ConsoleInputReader(consoleWrapper);
+        var reader = new ConsoleStringInputReader(consoleWrapper);
         reader.GetInput().Should().Be("Provided text");
     }
 
@@ -23,7 +23,7 @@ public class ConsoleInputReaderTests : ConsoleTest
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("", " ", "    ", "Provided text");
 
-        var reader = new ConsoleInputReader(consoleWrapper);
+        var reader = new ConsoleStringInputReader(consoleWrapper);
         reader.GetInput().Should().Be("Provided text");
     }
 }

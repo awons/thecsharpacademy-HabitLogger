@@ -1,6 +1,8 @@
+using HabitLoggerLibrary.Ui.Input.StringInput;
+
 namespace HabitLoggerLibrary.Ui.Input;
 
 public interface IInputReaderSelector
 {
-    public IInputReader GetInputReader();
+    public IStringInputReader GetInputReader();
 }
