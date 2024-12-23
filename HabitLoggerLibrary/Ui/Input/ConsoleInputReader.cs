@@ -1,6 +1,6 @@
 namespace HabitLoggerLibrary.Ui.Input;
 
-public sealed class ConsoleStringInputReader(IConsoleWrapper consoleWrapper) : IStringInputReader
+public sealed class ConsoleInputReader(IConsoleWrapper consoleWrapper) : IInputReader
 {
     public string GetInput()
     {

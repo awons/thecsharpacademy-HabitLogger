@@ -12,7 +12,7 @@ public class InsertHabitHandlerTests : IntegrationTests
     [Test]
     public void WillAddHabit()
     {
-        var inputReader = Substitute.For<IStringInputReader>();
+        var inputReader = Substitute.For<IInputReader>();
         inputReader.GetInput().Returns("Some habit name", "kilometers");
         var inputReaderSelector = Substitute.For<IInputReaderSelector>();
         inputReaderSelector.GetInputReader().Returns(inputReader);

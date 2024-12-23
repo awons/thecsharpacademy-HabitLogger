@@ -13,7 +13,7 @@ public class InsertHabitLogHandlerTests : IntegrationTests
     public void WillAddNewHabitLog()
     {
         var inputReaderSelector = Substitute.For<IInputReaderSelector>();
-        var inputReader = Substitute.For<IStringInputReader>();
+        var inputReader = Substitute.For<IInputReader>();
         inputReader.GetInput().Returns("2024.01.02", "5");
         inputReaderSelector.GetInputReader().Returns(inputReader);
 

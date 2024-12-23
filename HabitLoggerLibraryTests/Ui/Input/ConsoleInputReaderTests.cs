@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace HabitLoggerLibraryTests.Ui.Input;
 
-public class ConsoleStringInputReaderTests : ConsoleTest
+public class ConsoleInputReaderTests : ConsoleTest
 {
     [Test]
     public void WillReturnProvidedInput()
@@ -13,7 +13,7 @@ public class ConsoleStringInputReaderTests : ConsoleTest
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("Provided text");
 
-        var reader = new ConsoleStringInputReader(consoleWrapper);
+        var reader = new ConsoleInputReader(consoleWrapper);
         reader.GetInput().Should().Be("Provided text");
     }
 
@@ -23,7 +23,7 @@ public class ConsoleStringInputReaderTests : ConsoleTest
         var consoleWrapper = Substitute.For<IConsoleWrapper>();
         consoleWrapper.ReadLine().Returns("", " ", "    ", "Provided text");
 
-        var reader = new ConsoleStringInputReader(consoleWrapper);
+        var reader = new ConsoleInputReader(consoleWrapper);
         reader.GetInput().Should().Be("Provided text");
     }
 }

@@ -2,11 +2,11 @@ namespace HabitLoggerLibrary.Ui.Input;
 
 public sealed class InputReaderFactory(IConsoleWrapper consoleWrapper) : IInputReaderFactory
 {
-    public IStringInputReader Create(InputChoice choice)
+    public IInputReader Create(InputChoice choice)
     {
         return choice switch
         {
-            InputChoice.ConsoleInput => new ConsoleStringInputReader(consoleWrapper),
+            InputChoice.ConsoleInput => new ConsoleInputReader(consoleWrapper),
             _ => throw new ArgumentOutOfRangeException(nameof(choice), choice, null)
         };
     }
