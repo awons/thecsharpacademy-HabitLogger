@@ -3,7 +3,6 @@ using HabitLoggerApp.Application.Handlers.Habits;
 using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
-using HabitLoggerLibrary.Ui.Input.StringInput;
 using NSubstitute;
 
 namespace HabitLoggerAppTests.Application.Handlers.Habits;
@@ -22,8 +21,8 @@ public class EditHabitHandlerTests : IntegrationTests
         var habitChoiceReader = Substitute.For<IHabitChoiceReader>();
         habitChoiceReader.GetChoice().Returns(1);
 
-        var inputReader = Substitute.For<IStringInputReader>();
-        inputReader.GetInput().Returns("new habit name", "new unit of measure");
+        var inputReader = Substitute.For<IInputReader>();
+        inputReader.GetStringInput().Returns("new habit name", "new unit of measure");
         var inputReaderSelector = Substitute.For<IInputReaderSelector>();
         inputReaderSelector.GetInputReader().Returns(inputReader);
 

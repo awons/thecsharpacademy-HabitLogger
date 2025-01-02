@@ -8,7 +8,6 @@ using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.HabitLogs;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
-using HabitLoggerLibrary.Ui.Input.StringInput;
 using HabitLoggerLibrary.Ui.Menu;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +37,7 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<ViewHabitsHandler>();
         services.AddSingleton<InsertHabitHandler>();
         services.AddSingleton<IInputChoiceReader, ConsoleInputChoiceReader>();
-        services.AddSingleton<IStringInputReaderFactory, StringInputReaderFactory>();
+        services.AddSingleton<IInputReaderFactory, InputReaderFactory>();
         services.AddSingleton<EditHabitHandler>();
         services.AddSingleton<IInputReaderSelector, InputReaderSelector>();
         services.AddSingleton<HabitLogsMainMenuHandler>();
@@ -48,6 +47,7 @@ var builder = Host.CreateDefaultBuilder()
             serviceProvider.GetService<RepositoryFactory>()!.CreateHabitLogsRepository());
         services.AddSingleton<DeleteHabitLogHandler>();
         services.AddSingleton<IHabitLogChoiceReader, ConsoleHabitLogChoiceReader>();
+        services.AddSingleton<InsertHabitLogHandler>();
     });
 
 using var host = builder.Build();

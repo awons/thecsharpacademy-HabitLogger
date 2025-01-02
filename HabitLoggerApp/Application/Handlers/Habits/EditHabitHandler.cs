@@ -33,10 +33,10 @@ public sealed class EditHabitHandler(
         Console.WriteLine($"Editing habit: {habit.HabitName}; {habit.UnitOfMeasure}");
 
         Console.WriteLine("Provide new habit name:");
-        var newHabitName = inputReader.GetInput();
+        var newHabitName = inputReader.GetStringInput();
 
         Console.WriteLine("Provide new unit of measure:");
-        var newUnitOfMeasure = inputReader.GetInput();
+        var newUnitOfMeasure = inputReader.GetStringInput();
 
         repository.UpdateHabit(habit with { HabitName = newHabitName, UnitOfMeasure = newUnitOfMeasure });
 

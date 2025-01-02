@@ -16,9 +16,15 @@ public class ConsoleHabitChoiceReader(IConsoleWrapper consoleWrapper, IHabitsRep
             Console.Write("> ");
             var line = consoleWrapper.ReadLine();
 
-            if (!long.TryParse(line, out var choice)) continue;
-
             var currentPositionTop = Console.CursorTop;
+            if (!long.TryParse(line, out var choice))
+            {
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(positionLeft, currentPositionTop);
+                Console.WriteLine("Please provide a numeric value...");
+                continue;
+            }
+
             if (!repository.HasHabitById(choice))
             {
                 Console.Write(new string(' ', Console.WindowWidth));

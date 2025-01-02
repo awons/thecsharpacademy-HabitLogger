@@ -14,6 +14,7 @@ public sealed class InsertHabitLogHandler(
     public void Handle()
     {
         Console.Clear();
+        HabitsRenderer.Render(habitsRepository.GetHabits());
         Console.WriteLine("Choose habit you want to insert log for");
         var habitId = habitChoiceReader.GetChoice();
         var inputReader = inputReaderSelector.GetInputReader();
@@ -23,12 +24,11 @@ public sealed class InsertHabitLogHandler(
         Console.WriteLine($"Insert habit log for habit '{habit.HabitName}' ({habit.UnitOfMeasure})");
 
         Console.WriteLine("Provide date");
-        var habitDate = inputReader.GetInput();
+        var habitDate = inputReader.GetDateInput();
 
         Console.WriteLine("Provide quantity");
-        var habitQuantity = inputReader.GetInput();
+        var habitQuantity = inputReader.GetNumberInput();
 
-        habitLogsRepository.AddHabitLog(new HabitLogDraft(habitId, Convert.ToInt32(habitQuantity),
-            DateOnly.FromDateTime(DateTime.Parse(habitDate))));
+        habitLogsRepository.AddHabitLog(new HabitLogDraft(habitId, Convert.ToInt32(habitQuantity), habitDate));
     }
 }

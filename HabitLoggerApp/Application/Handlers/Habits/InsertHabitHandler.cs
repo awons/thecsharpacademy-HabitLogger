@@ -15,11 +15,11 @@ public sealed class InsertHabitHandler(
         var inputReader = inputReaderSelector.GetInputReader();
         Console.Clear();
         Console.WriteLine("Provide habit name");
-        var habitName = inputReader.GetInput();
+        var habitName = inputReader.GetStringInput();
 
         Console.Clear();
         Console.WriteLine("Provide unit of measure");
-        var unitOfMeasure = inputReader.GetInput();
+        var unitOfMeasure = inputReader.GetStringInput();
 
         var habit = repository.AddHabit(new HabitDraft(habitName, unitOfMeasure));
 
