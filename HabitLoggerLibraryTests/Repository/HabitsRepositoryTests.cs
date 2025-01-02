@@ -10,7 +10,7 @@ public class HabitsRepositoryTests : IntegrationTests
     [Test]
     public void CollectionIsEmptyWhenThereAreNoResults()
     {
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
         repository.GetHabits().Should().BeEmpty();
     }
 
@@ -18,7 +18,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void CollectionContainsAllResultsInDb()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
         repository.GetHabits().Should().HaveCount(3);
     }
 
@@ -26,7 +26,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillReturnHabitById()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         var habit = repository.GetHabitById(2);
 
@@ -39,7 +39,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillThrowExceptionIfHabitDoesNotExist()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         Action action = () => repository.GetHabitById(0);
         action.Should().Throw<LibraryRepository.HabitNotFoundException>();
@@ -49,7 +49,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillReturnTrueIfHabitExists()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.HasHabitById(1).Should().BeTrue();
     }
@@ -58,7 +58,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillReturnFalseIfHabitDoesNotExist()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.HasHabitById(0).Should().BeFalse();
     }
@@ -67,7 +67,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WIllDeleteExistingHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.HasHabitById(1).Should().BeTrue();
         repository.DeleteHabitById(1);
@@ -78,7 +78,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillThrowExceptionIfTryingToDeleteNotExistingHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         var action = () => repository.DeleteHabitById(0);
         action.Should().Throw<LibraryRepository.HabitNotFoundException>();
@@ -88,7 +88,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void ExistingHabitWillBeUpdated()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         var updatedHabit = repository.GetHabitById(1) with
         {
@@ -103,7 +103,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillThrowExceptionIfUpdatingNonExistingHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         var updatedHabit = repository.GetHabitById(1) with { Id = 10 };
 
@@ -115,7 +115,7 @@ public class HabitsRepositoryTests : IntegrationTests
     public void WillAddNewHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.HasHabitById(4).Should().BeFalse();
         var habit = repository.AddHabit(new HabitDraft("added_habit_name", "kilograms"));
@@ -129,15 +129,10 @@ public class HabitsRepositoryTests : IntegrationTests
     [Test]
     public void WillGetCorrectHabitsCount()
     {
-        var repository = CreateRepository();
+        var repository = CreateHabitsRepository();
 
         repository.GetHabits().Count().Should().Be(0);
         PopulateDatabase();
         repository.GetHabits().Count().Should().Be(3);
-    }
-
-    private LibraryRepository.IHabitsRepository CreateRepository()
-    {
-        return new LibraryRepository.HabitsRepository(DatabaseManager.GetConnection());
     }
 }

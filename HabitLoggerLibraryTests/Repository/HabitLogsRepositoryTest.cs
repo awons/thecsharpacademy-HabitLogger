@@ -10,7 +10,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     [Test]
     public void CollectionIsEmptyWhenThereAreNoResults()
     {
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
         repository.GetHabitLogs().Should().BeEmpty();
     }
 
@@ -18,7 +18,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void CollectionContainsAllResultsInDb()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
         repository.GetHabitLogs().Should().HaveCount(9);
     }
 
@@ -26,7 +26,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillReturnHabitLogById()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         var habit = repository.GetHabitLogById(4);
 
@@ -42,7 +42,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillThrowExceptionIfHabitDoesNotExist()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         Action action = () => repository.GetHabitLogById(0);
         action.Should().Throw<LibraryRepository.HabitLogNotFoundException>();
@@ -52,7 +52,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillReturnTrueIfHabitExists()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.HasHabitLogById(1).Should().BeTrue();
     }
@@ -61,7 +61,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillReturnFalseIfHabitDoesNotExist()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.HasHabitLogById(0).Should().BeFalse();
     }
@@ -70,7 +70,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WIllDeleteExistingHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.HasHabitLogById(1).Should().BeTrue();
         repository.DeleteHabitLogById(1);
@@ -81,7 +81,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillThrowExceptionIfTryingToDeleteNotExistingHabitLog()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         var action = () => repository.DeleteHabitLogById(0);
         action.Should().Throw<LibraryRepository.HabitLogNotFoundException>();
@@ -91,7 +91,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void ExistingHabitWillBeUpdated()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         var updatedHabit = repository.GetHabitLogById(1) with
         {
@@ -106,7 +106,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillThrowExceptionIfUpdatingNonExistingHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         var updatedHabit = repository.GetHabitLogById(1) with { Id = 100 };
 
@@ -118,7 +118,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillAddNewHabit()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.HasHabitLogById(10).Should().BeFalse();
         var habit = repository.AddHabitLog(new HabitLogDraft(1, 21, new DateOnly(2024, 2, 22)));
@@ -132,7 +132,7 @@ public class HabitLogsRepositoryTest : IntegrationTests
     [Test]
     public void WillGetCorrectHabitsCount()
     {
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.GetHabitLogs().Count().Should().Be(0);
         PopulateDatabase();
@@ -143,14 +143,9 @@ public class HabitLogsRepositoryTest : IntegrationTests
     public void WillReturnTrueIfHabitLogByIdAndDateExists()
     {
         PopulateDatabase();
-        var repository = CreateRepository();
+        var repository = CreateHabitLogsRepository();
 
         repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2024, 2, 22)).Should().BeFalse();
         repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2020, 1, 1)).Should().BeTrue();
-    }
-
-    private LibraryRepository.IHabitLogsRepository CreateRepository()
-    {
-        return new LibraryRepository.HabitLogsRepository(DatabaseManager.GetConnection());
     }
 }

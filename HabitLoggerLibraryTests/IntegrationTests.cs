@@ -59,8 +59,13 @@ public abstract class IntegrationTests : ConsoleTest
         command.ExecuteNonQuery();
     }
 
-    protected LibraryRepository.IHabitsRepository CreateRepository()
+    protected LibraryRepository.IHabitsRepository CreateHabitsRepository()
     {
         return new LibraryRepository.HabitsRepository(DatabaseManager.GetConnection());
+    }
+
+    protected LibraryRepository.IHabitLogsRepository CreateHabitLogsRepository()
+    {
+        return new LibraryRepository.HabitLogsRepository(DatabaseManager.GetConnection());
     }
 }
