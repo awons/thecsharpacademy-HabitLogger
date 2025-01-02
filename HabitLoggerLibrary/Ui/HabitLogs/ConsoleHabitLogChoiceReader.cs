@@ -15,11 +15,17 @@ public class ConsoleHabitLogChoiceReader(IHabitLogsRepository repository, IConso
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(positionLeft, positionTop);
             Console.Write("> ");
-            var line = Console.ReadLine();
-
-            if (!long.TryParse(line, out var choice)) continue;
+            var line = consoleWrapper.ReadLine();
 
             var currentPositionTop = Console.CursorTop;
+            if (!long.TryParse(line, out var choice))
+            {
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(positionLeft, currentPositionTop);
+                Console.WriteLine("Provide a numeric value...");
+                continue;
+            }
+
             if (!repository.HasHabitLogById(choice))
             {
                 Console.Write(new string(' ', Console.WindowWidth));
