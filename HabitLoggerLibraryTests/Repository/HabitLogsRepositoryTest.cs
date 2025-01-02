@@ -139,6 +139,16 @@ public class HabitLogsRepositoryTest : IntegrationTests
         repository.GetHabitLogs().Count().Should().Be(9);
     }
 
+    [Test]
+    public void WillReturnTrueIfHabitLogByIdAndDateExists()
+    {
+        PopulateDatabase();
+        var repository = CreateRepository();
+
+        repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2024, 2, 22)).Should().BeFalse();
+        repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2020, 1, 1)).Should().BeTrue();
+    }
+
     private LibraryRepository.IHabitLogsRepository CreateRepository()
     {
         return new LibraryRepository.HabitLogsRepository(DatabaseManager.GetConnection());
