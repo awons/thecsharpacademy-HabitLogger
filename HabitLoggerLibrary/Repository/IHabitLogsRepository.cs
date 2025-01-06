@@ -18,5 +18,5 @@ public interface IHabitLogsRepository
 
     public bool HasHabitLogByHabitIdAndDate(long habitId, DateOnly date);
 
-    public long GetHabitLogsCount();
+    public List<Statistic> GetStatistics(string period);
 }

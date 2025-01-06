@@ -103,14 +103,28 @@ public sealed class HabitLogsRepository(SqliteConnection connection) : IHabitLog
         return reader.HasRows;
     }
 
-    public long GetHabitLogsCount()
+    public List<Statistic> GetStatistics(string period)
     {
         var command = connection.CreateCommand();
-        command.CommandText = $"SELECT COUNT(id) FROM {IHabitLogsRepository.TableName}";
+        command.CommandText =
+            $@"SELECT h.habit, strftime(@Period, hl.habit_date) AS week, SUM(hl.quantity) AS average, h.unit_of_measure 
+FROM {IHabitsRepository.TableName} AS h 
+INNER JOIN {IHabitLogsRepository.TableName} AS hl ON hl.habit_id = h.id
+WHERE hl.habit_date
+GROUP BY strftime(@Period, hl.habit_date), h.id
+ORDER BY h.id, hl.habit_date";
+
+        command.Parameters.AddWithValue("@Period", period);
 
         using var reader = command.ExecuteReader();
+
         reader.Read();
 
-        return reader.GetInt64(0);
+        var results = new List<Statistic>();
+        while (reader.Read())
+            results.Add(
+                new Statistic(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3)));
+
+        return results;
     }
 }

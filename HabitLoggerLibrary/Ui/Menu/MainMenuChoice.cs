@@ -7,5 +7,6 @@ public enum MainMenuChoice
     DeleteHAbit = 'd',
     EditHabit = 'e',
     HabitLogs = 'l',
+    Statistics = 's',
     Quit = 'q'
 }

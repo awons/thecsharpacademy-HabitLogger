@@ -10,7 +10,8 @@ public class Loop(
     ViewHabitsHandler viewHabitsHandler,
     InsertHabitHandler insertHabitHandler,
     EditHabitHandler editHabitHandler,
-    HabitLogsMainMenuHandler habitLogsMainMenuHandler)
+    HabitLogsMainMenuHandler habitLogsMainMenuHandler,
+    StatisticsHandler statisticsHandler)
 {
     public void Run()
     {
@@ -39,6 +40,9 @@ public class Loop(
                     break;
                 case MainMenuChoice.HabitLogs:
                     habitLogsMainMenuHandler.Handle();
+                    break;
+                case MainMenuChoice.Statistics:
+                    statisticsHandler.Handle();
                     break;
             }
         } while (true);
