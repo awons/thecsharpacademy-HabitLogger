@@ -48,6 +48,7 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<DeleteHabitLogHandler>();
         services.AddSingleton<IHabitLogChoiceReader, ConsoleHabitLogChoiceReader>();
         services.AddSingleton<InsertHabitLogHandler>();
+        services.AddSingleton<EditHabitLogHandler>();
     });
 
 using var host = builder.Build();

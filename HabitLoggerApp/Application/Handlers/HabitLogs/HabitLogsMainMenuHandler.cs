@@ -6,7 +6,8 @@ public class HabitLogsMainMenuHandler(
     IHabitLogsMenuChoiceReader choiceReader,
     ViewHabitLogsHandler viewHabitLogsHandler,
     DeleteHabitLogHandler deleteHabitLogHandler,
-    InsertHabitLogHandler insertHabitLogHandler)
+    InsertHabitLogHandler insertHabitLogHandler,
+    EditHabitLogHandler editHabitLogHandler)
 {
     public void Handle()
     {
@@ -25,7 +26,7 @@ public class HabitLogsMainMenuHandler(
                     deleteHabitLogHandler.Handle();
                     break;
                 case HabitLogsMenuChoice.EditLogEntry:
-                    // TODO Implement
+                    editHabitLogHandler.Handle();
                     break;
                 case HabitLogsMenuChoice.InsertLogEntry:
                     insertHabitLogHandler.Handle();
