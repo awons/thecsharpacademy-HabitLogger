@@ -148,4 +148,44 @@ public class HabitLogsRepositoryTest : IntegrationTests
         repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2024, 2, 22)).Should().BeFalse();
         repository.HasHabitLogByHabitIdAndDate(1, new DateOnly(2020, 1, 1)).Should().BeTrue();
     }
+
+    [Test]
+    public void WillGetStatisticsForGivenPeriod()
+    {
+        PopulateDatabase();
+
+        var repository = CreateHabitLogsRepository();
+
+        var statistics = repository.GetStatistics("%Y");
+        statistics.Count.Should().Be(3);
+
+        statistics[0].Should()
+            .BeEquivalentTo(new Statistic("Running", "2020", 12, "kilometers"));
+        statistics[1].Should()
+            .BeEquivalentTo(new Statistic("Swimming", "2020", 21, "meters"));
+        statistics[2].Should()
+            .BeEquivalentTo(new Statistic("Drinking water", "2020", 30, "glasses"));
+
+        statistics = repository.GetStatistics("%Y-%m");
+        statistics.Count.Should().Be(9);
+
+        statistics[0].Should()
+            .BeEquivalentTo(new Statistic("Running", "2020-01", 3, "kilometers"));
+        statistics[1].Should()
+            .BeEquivalentTo(new Statistic("Running", "2020-02", 4, "kilometers"));
+        statistics[2].Should()
+            .BeEquivalentTo(new Statistic("Running", "2020-03", 5, "kilometers"));
+        statistics[3].Should()
+            .BeEquivalentTo(new Statistic("Swimming", "2020-04", 6, "meters"));
+        statistics[4].Should()
+            .BeEquivalentTo(new Statistic("Swimming", "2020-05", 7, "meters"));
+        statistics[5].Should()
+            .BeEquivalentTo(new Statistic("Swimming", "2020-06", 8, "meters"));
+        statistics[6].Should()
+            .BeEquivalentTo(new Statistic("Drinking water", "2020-07", 9, "glasses"));
+        statistics[7].Should()
+            .BeEquivalentTo(new Statistic("Drinking water", "2020-08", 10, "glasses"));
+        statistics[8].Should()
+            .BeEquivalentTo(new Statistic("Drinking water", "2020-09", 11, "glasses"));
+    }
 }

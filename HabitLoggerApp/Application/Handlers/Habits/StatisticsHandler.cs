@@ -14,17 +14,17 @@ public class StatisticsHandler(IHabitLogsRepository repository, IKeyAwaiter keyA
 
         Console.WriteLine("Yearly statistics:");
         foreach (var record in yearlyStatistics)
-            Console.WriteLine($"{record.habitName}: {record.period}; {record.average} {record.unitOfMeasure}");
+            Console.WriteLine($"{record.habitName}: {record.period}; {record.total} {record.unitOfMeasure}");
 
         Console.WriteLine("--------------------");
         Console.WriteLine("Monthly statistics:");
         foreach (var record in monthlyStatistics)
-            Console.WriteLine($"{record.habitName}: {record.period}; {record.average} {record.unitOfMeasure}");
+            Console.WriteLine($"{record.habitName}: {record.period}; {record.total} {record.unitOfMeasure}");
 
         Console.WriteLine("--------------------");
         Console.WriteLine("Weekly statistics:");
         foreach (var record in weeklyStatistics)
-            Console.WriteLine($"{record.habitName}: {record.period}; {record.average} {record.unitOfMeasure}");
+            Console.WriteLine($"{record.habitName}: {record.period}; {record.total} {record.unitOfMeasure}");
 
         Console.WriteLine("Press any key to continue...");
         keyAwaiter.Wait();

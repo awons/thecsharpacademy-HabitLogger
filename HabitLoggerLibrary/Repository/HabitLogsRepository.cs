@@ -107,18 +107,15 @@ public sealed class HabitLogsRepository(SqliteConnection connection) : IHabitLog
     {
         var command = connection.CreateCommand();
         command.CommandText =
-            $@"SELECT h.habit, strftime(@Period, hl.habit_date) AS week, SUM(hl.quantity) AS average, h.unit_of_measure 
+            $@"SELECT h.habit, strftime(@Period, hl.habit_date) AS period, SUM(hl.quantity), h.unit_of_measure 
 FROM {IHabitsRepository.TableName} AS h 
 INNER JOIN {IHabitLogsRepository.TableName} AS hl ON hl.habit_id = h.id
-WHERE hl.habit_date
-GROUP BY strftime(@Period, hl.habit_date), h.id
+GROUP BY h.id, period
 ORDER BY h.id, hl.habit_date";
 
         command.Parameters.AddWithValue("@Period", period);
 
         using var reader = command.ExecuteReader();
-
-        reader.Read();
 
         var results = new List<Statistic>();
         while (reader.Read())
