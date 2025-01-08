@@ -1,5 +1,6 @@
 using HabitLoggerLibrary;
 using HabitLoggerLibrary.Repository;
+using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
 
@@ -9,7 +10,8 @@ public sealed class InsertHabitLogHandler(
     IInputReaderSelector inputReaderSelector,
     IHabitChoiceReader habitChoiceReader,
     IHabitsRepository habitsRepository,
-    IHabitLogsRepository habitLogsRepository)
+    IHabitLogsRepository habitLogsRepository,
+    IKeyAwaiter keyAwaiter)
 {
     public void Handle()
     {
@@ -29,6 +31,10 @@ public sealed class InsertHabitLogHandler(
         Console.WriteLine("Provide quantity");
         var habitQuantity = inputReader.GetNumberInput();
 
-        habitLogsRepository.AddHabitLog(new HabitLogDraft(habitId, Convert.ToInt32(habitQuantity), habitDate));
+        var habitLog =
+            habitLogsRepository.AddHabitLog(new HabitLogDraft(habitId, Convert.ToInt32(habitQuantity), habitDate));
+        Console.WriteLine($"Habit log added: {habitLog.HabitName}; {habitLog.HabitDate}; {habitLog.Quantity}");
+        Console.WriteLine("Press any key to continue...");
+        keyAwaiter.Wait();
     }
 }

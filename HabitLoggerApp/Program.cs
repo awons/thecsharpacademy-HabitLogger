@@ -20,6 +20,8 @@ var builder = Host.CreateDefaultBuilder()
             .AddUserSecrets<Program>();
     }).ConfigureServices((context, services) =>
     {
+        services.Configure<SpeechRecognizerFactoryOptions>(
+            context.Configuration.GetSection(SpeechRecognizerFactoryOptions.Key));
         services.AddSingleton<App>();
         services.AddSingleton<DatabaseManagerFactory>();
         services.AddSingleton<RepositoryFactory>();
@@ -50,6 +52,7 @@ var builder = Host.CreateDefaultBuilder()
         services.AddSingleton<InsertHabitLogHandler>();
         services.AddSingleton<EditHabitLogHandler>();
         services.AddSingleton<StatisticsHandler>();
+        services.AddSingleton<ISpeechInputReaderFactory, SpeechInputReaderFactory>();
     });
 
 using var host = builder.Build();

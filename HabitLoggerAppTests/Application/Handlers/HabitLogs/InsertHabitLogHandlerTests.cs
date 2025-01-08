@@ -1,5 +1,6 @@
 using FluentAssertions;
 using HabitLoggerApp.Application.Handlers.HabitLogs;
+using HabitLoggerLibrary.Ui;
 using HabitLoggerLibrary.Ui.Habits;
 using HabitLoggerLibrary.Ui.Input;
 using NSubstitute;
@@ -21,11 +22,13 @@ public class InsertHabitLogHandlerTests : IntegrationTests
         var habitChoiceReader = Substitute.For<IHabitChoiceReader>();
         habitChoiceReader.GetChoice().Returns(1);
 
+        var keyAwaiter = Substitute.For<IKeyAwaiter>();
+
         var habitRepository = CreateHabitsRepository();
         var habitLogsRepository = CreateHabitLogsRepository();
 
         var handler = new InsertHabitLogHandler(inputReaderSelector, habitChoiceReader, habitRepository,
-            habitLogsRepository);
+            habitLogsRepository, keyAwaiter);
 
         PopulateDatabase();
         habitLogsRepository.HasHabitLogById(10).Should().BeFalse();
