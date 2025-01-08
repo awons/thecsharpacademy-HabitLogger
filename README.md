@@ -32,7 +32,7 @@ Still WIP
 ```bash
 dotnet restore
 dotnet build
-dotnet run --project ...
+dotnet run --project HabitLoggerApp
 ```
 
 ## Running tests

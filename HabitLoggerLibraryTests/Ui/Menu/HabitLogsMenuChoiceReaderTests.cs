@@ -6,7 +6,7 @@ using NSubstitute;
 namespace HabitLoggerLibraryTests.Ui.Menu;
 
 [TestFixture]
-public class HabitLogsMenuChoiceReaderTests
+public class HabitLogsMenuChoiceReaderTests : ConsoleTest
 {
     [Test]
     [TestCaseSource(nameof(_valueTuples))]
